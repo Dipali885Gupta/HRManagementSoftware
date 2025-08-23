@@ -1,3 +1,4 @@
+using HRManagementSoftware.LeaveRequests;
 using System;
 using HRManagementSoftware.Shared;
 using Volo.Abp.Identity;
@@ -19,5 +20,10 @@ public class HRManagementSoftwareApplicationAutoMapperProfile : Profile
         CreateMap<Employee, EmployeeExcelDto>();
         CreateMap<EmployeeWithNavigationProperties, EmployeeWithNavigationPropertiesDto>();
         CreateMap<IdentityUser, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Name));
+
+        CreateMap<LeaveRequest, LeaveRequestDto>();
+        CreateMap<LeaveRequest, LeaveRequestExcelDto>();
+        CreateMap<LeaveRequestWithNavigationProperties, LeaveRequestWithNavigationPropertiesDto>();
+        CreateMap<Employee, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.EmployeeNumber));
     }
 }

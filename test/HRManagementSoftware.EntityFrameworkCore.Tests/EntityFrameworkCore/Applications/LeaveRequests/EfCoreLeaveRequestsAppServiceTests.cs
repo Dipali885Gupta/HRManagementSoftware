@@ -1,0 +1,9 @@
+using HRManagementSoftware.LeaveRequests;
+using Xunit;
+using HRManagementSoftware.EntityFrameworkCore;
+
+namespace HRManagementSoftware.LeaveRequests;
+
+public class EfCoreLeaveRequestsAppServiceTests : LeaveRequestsAppServiceTests<HRManagementSoftwareEntityFrameworkCoreTestModule>
+{
+}

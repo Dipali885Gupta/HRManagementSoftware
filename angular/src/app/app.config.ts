@@ -28,6 +28,7 @@ import { environment } from '../environments/environment';
 import { APP_ROUTES } from './app.routes';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 import { EMPLOYEES_EMPLOYEE_ROUTE_PROVIDER } from './employees/employee/providers/employee-route.provider';
+import { LEAVE_REQUESTS_LEAVE_REQUEST_ROUTE_PROVIDER } from './leave-requests/leave-request/providers/leave-request-route.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -74,5 +75,6 @@ export const appConfig: ApplicationConfig = {
     provideOpeniddictproConfig(),
     provideTextTemplateManagementConfig(),
     EMPLOYEES_EMPLOYEE_ROUTE_PROVIDER,
+    LEAVE_REQUESTS_LEAVE_REQUEST_ROUTE_PROVIDER,
   ],
 };

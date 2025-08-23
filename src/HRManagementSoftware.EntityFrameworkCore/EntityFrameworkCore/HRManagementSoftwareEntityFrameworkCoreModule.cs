@@ -1,3 +1,5 @@
+using HRManagementSoftware.LeaveRequests;
+
 using HRManagementSoftware.Employees;
 
 using System;
@@ -54,6 +56,8 @@ public class HRManagementSoftwareEntityFrameworkCoreModule : AbpModule
              * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
             options.AddRepository<Employee, Employees.EfCoreEmployeeRepository>();
+
+            options.AddRepository<LeaveRequest, LeaveRequests.EfCoreLeaveRequestRepository>();
 
         });
 
