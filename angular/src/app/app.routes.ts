@@ -1,6 +1,7 @@
 import { authGuard, permissionGuard } from '@abp/ng.core';
 import { Routes } from '@angular/router';
 import { GDPR_COOKIE_CONSENT_ROUTES } from './gdpr-cookie-consent/gdpr-cookie-consent.routes';
+import { EMPLOYEE_ROUTES } from './employees/employee/employee-routes';
 
 export const APP_ROUTES: Routes = [
   {
@@ -53,4 +54,5 @@ export const APP_ROUTES: Routes = [
     path: 'setting-management',
     loadChildren: () => import('@abp/ng.setting-management').then(c => c.createRoutes()),
   },
+  { path: 'employees', children: EMPLOYEE_ROUTES },
 ];

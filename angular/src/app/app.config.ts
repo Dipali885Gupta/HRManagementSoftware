@@ -2,7 +2,11 @@ import { provideAbpCore, withOptions } from '@abp/ng.core';
 import { provideAbpOAuth } from '@abp/ng.oauth';
 import { provideSettingManagementConfig } from '@abp/ng.setting-management/config';
 import { provideFeatureManagementConfig } from '@abp/ng.feature-management';
-import { provideAbpThemeShared,withValidationBluePrint,withHttpErrorConfig} from '@abp/ng.theme.shared';
+import {
+  provideAbpThemeShared,
+  withValidationBluePrint,
+  withHttpErrorConfig,
+} from '@abp/ng.theme.shared';
 import { provideIdentityConfig } from '@volo/abp.ng.identity/config';
 import { provideCommercialUiConfig } from '@volo/abp.commercial.ng.ui/config';
 import { provideAccountAdminConfig } from '@volo/abp.ng.account/admin/config';
@@ -16,13 +20,14 @@ import { provideTextTemplateManagementConfig } from '@volo/abp.ng.text-template-
 import { provideOpeniddictproConfig } from '@volo/abp.ng.openiddictpro/config';
 import { HttpErrorComponent, provideThemeLeptonX } from '@volosoft/abp.ng.theme.lepton-x';
 import { provideSideMenuLayout } from '@volosoft/abp.ng.theme.lepton-x/layouts';
-import { provideLogo, withEnvironmentOptions } from "@volo/ngx-lepton-x.core";
+import { provideLogo, withEnvironmentOptions } from '@volo/ngx-lepton-x.core';
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { environment } from '../environments/environment';
 import { APP_ROUTES } from './app.routes';
 import { APP_ROUTE_PROVIDER } from './route.provider';
+import { EMPLOYEES_EMPLOYEE_ROUTE_PROVIDER } from './employees/employee/providers/employee-route.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,7 +48,7 @@ export const appConfig: ApplicationConfig = {
     provideAccountPublicConfig(),
     provideCommercialUiConfig(),
     provideThemeLeptonX(),
-		provideSideMenuLayout(),
+    provideSideMenuLayout(),
     provideAbpThemeShared(
       withHttpErrorConfig({
         errorScreen: {
@@ -68,5 +73,6 @@ export const appConfig: ApplicationConfig = {
     provideAuditLoggingConfig(),
     provideOpeniddictproConfig(),
     provideTextTemplateManagementConfig(),
-  ]
+    EMPLOYEES_EMPLOYEE_ROUTE_PROVIDER,
+  ],
 };

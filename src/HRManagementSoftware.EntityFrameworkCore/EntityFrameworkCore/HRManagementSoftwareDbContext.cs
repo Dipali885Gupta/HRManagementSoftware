@@ -1,3 +1,4 @@
+using HRManagementSoftware.Employees;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -29,8 +30,8 @@ public class HRManagementSoftwareDbContext :
     ISaasDbContext,
     IIdentityProDbContext
 {
+    public DbSet<Employee> Employees { get; set; } = null!;
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
-
 
     #region Entities from the modules
 
@@ -86,7 +87,7 @@ public class HRManagementSoftwareDbContext :
         builder.ConfigureTextTemplateManagement();
         builder.ConfigureGdpr();
         builder.ConfigureBlobStoring();
-        
+
         /* Configure your own tables/entities inside here */
 
         //builder.Entity<YourEntity>(b =>
@@ -95,5 +96,26 @@ public class HRManagementSoftwareDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        if (builder.IsHostDatabase())
+        {
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<Employee>(b =>
+            {
+                b.ToTable(HRManagementSoftwareConsts.DbTablePrefix + "Employees", HRManagementSoftwareConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.EmployeeNumber).HasColumnName(nameof(Employee.EmployeeNumber)).IsRequired().HasMaxLength(EmployeeConsts.EmployeeNumberMaxLength);
+                b.Property(x => x.JobTitle).HasColumnName(nameof(Employee.JobTitle)).IsRequired().HasMaxLength(EmployeeConsts.JobTitleMaxLength);
+                b.Property(x => x.DateOfJoining).HasColumnName(nameof(Employee.DateOfJoining));
+                b.Property(x => x.PaidLeaveBalance).HasColumnName(nameof(Employee.PaidLeaveBalance)).HasMaxLength((int)EmployeeConsts.PaidLeaveBalanceMaxLength);
+                b.Property(x => x.SickLeaveBalance).HasColumnName(nameof(Employee.SickLeaveBalance)).HasMaxLength((int)EmployeeConsts.SickLeaveBalanceMaxLength);
+                b.Property(x => x.UnpaidLeaveBalance).HasColumnName(nameof(Employee.UnpaidLeaveBalance)).HasMaxLength((int)EmployeeConsts.UnpaidLeaveBalanceMaxLength);
+                b.Property(x => x.BaseSalary).HasColumnName(nameof(Employee.BaseSalary)).HasMaxLength((int)EmployeeConsts.BaseSalaryMaxLength);
+                b.HasOne<IdentityUser>().WithMany().HasForeignKey(x => x.IdentityUserId).OnDelete(DeleteBehavior.SetNull);
+            });
+
+        }
     }
 }

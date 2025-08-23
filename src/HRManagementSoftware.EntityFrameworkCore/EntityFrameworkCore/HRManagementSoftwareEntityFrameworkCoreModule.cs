@@ -1,3 +1,5 @@
+using HRManagementSoftware.Employees;
+
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Uow;
@@ -48,9 +50,11 @@ public class HRManagementSoftwareEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<HRManagementSoftwareDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
+            options.AddRepository<Employee, Employees.EfCoreEmployeeRepository>();
+
         });
 
         if (AbpStudioAnalyzeHelper.IsInAnalyzeMode)
@@ -66,6 +70,6 @@ public class HRManagementSoftwareEntityFrameworkCoreModule : AbpModule
             options.UseSqlServer();
 
         });
-        
+
     }
 }
