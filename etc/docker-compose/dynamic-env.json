@@ -1,0 +1,25 @@
+{
+  "production": true,
+  "application": {
+    "baseUrl":"http://localhost:4200",
+    "name": "HRManagementSoftware",
+    "logoUrl": ""
+  },
+  "oAuthConfig": {
+    "issuer": "https://localhost:44330/",
+    "redirectUri": "http://localhost:4200",
+    "clientId": "HRManagementSoftware_App",
+    "responseType": "code",
+    "scope": "offline_access openid profile email phone HRManagementSoftware"
+  },
+  "apis": {
+    "default": {
+      "url": "https://localhost:44330",
+      "rootNamespace": "HRManagementSoftware"
+    },
+    "AbpAccountPublic": {
+      "url": "https://localhost:44330",
+      "rootNamespace": "AbpAccountPublic"
+    }
+  }
+}

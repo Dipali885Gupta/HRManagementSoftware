@@ -1,0 +1,117 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXTheme": {
+      "version": "4.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TextTemplateManagement": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.LanguageManagement": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict.Pro": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Gdpr": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.AuditLogging.Pro": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Saas": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity.Pro": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account.Pro": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.3.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.3.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "HRManagementSoftware.Application": {
+      "path": "src/HRManagementSoftware.Application/HRManagementSoftware.Application.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.Application.Tests": {
+      "path": "test/HRManagementSoftware.Application.Tests/HRManagementSoftware.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRManagementSoftware.Domain.Shared": {
+      "path": "src/HRManagementSoftware.Domain.Shared/HRManagementSoftware.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.Application.Contracts": {
+      "path": "src/HRManagementSoftware.Application.Contracts/HRManagementSoftware.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.HttpApi": {
+      "path": "src/HRManagementSoftware.HttpApi/HRManagementSoftware.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.HttpApi.Client": {
+      "path": "src/HRManagementSoftware.HttpApi.Client/HRManagementSoftware.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.EntityFrameworkCore.Tests": {
+      "path": "test/HRManagementSoftware.EntityFrameworkCore.Tests/HRManagementSoftware.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRManagementSoftware.EntityFrameworkCore": {
+      "path": "src/HRManagementSoftware.EntityFrameworkCore/HRManagementSoftware.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.TestBase": {
+      "path": "test/HRManagementSoftware.TestBase/HRManagementSoftware.TestBase.abppkg",
+      "folder": "test"
+    },
+    "HRManagementSoftware.Domain.Tests": {
+      "path": "test/HRManagementSoftware.Domain.Tests/HRManagementSoftware.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "HRManagementSoftware.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/HRManagementSoftware.HttpApi.Client.ConsoleTestApp/HRManagementSoftware.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "HRManagementSoftware.DbMigrator": {
+      "path": "src/HRManagementSoftware.DbMigrator/HRManagementSoftware.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.HttpApi.Host": {
+      "path": "src/HRManagementSoftware.HttpApi.Host/HRManagementSoftware.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "HRManagementSoftware.Domain": {
+      "path": "src/HRManagementSoftware.Domain/HRManagementSoftware.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

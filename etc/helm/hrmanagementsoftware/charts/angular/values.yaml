@@ -1,0 +1,4 @@
+image:
+  repository: "hrmanagementsoftware/angular"
+  tag: "latest"
+  pullPolicy: IfNotPresent

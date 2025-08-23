@@ -1,0 +1,4 @@
+image:
+  repository: "hrmanagementsoftware/httpapihost"
+  tag: "latest"
+  pullPolicy: IfNotPresent
