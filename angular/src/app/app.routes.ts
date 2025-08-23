@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { GDPR_COOKIE_CONSENT_ROUTES } from './gdpr-cookie-consent/gdpr-cookie-consent.routes';
 import { EMPLOYEE_ROUTES } from './employees/employee/employee-routes';
 import { LEAVE_REQUEST_ROUTES } from './leave-requests/leave-request/leave-request-routes';
+import { HRMANAGER_ROUTES } from './hrmanagers/hrmanager/hrmanager-routes';
 
 export const APP_ROUTES: Routes = [
   {
@@ -57,4 +58,5 @@ export const APP_ROUTES: Routes = [
   },
   { path: 'employees', children: EMPLOYEE_ROUTES },
   { path: 'leave-requests', children: LEAVE_REQUEST_ROUTES },
+  { path: 'hrmanagers', children: HRMANAGER_ROUTES },
 ];

@@ -116,6 +116,17 @@
     "MaxStartDate": "Max Start Date",
     "MaxEndDate": "Max End Date",
     "MaxReason": "Max Reason",
-    "MaxRequestDate": "Max Request Date"
+    "MaxRequestDate": "Max Request Date",
+    "Permission:HRManagers": "H R Managers",
+    "HRManagers": "H R Managers",
+    "NewHRManager": "New H R Manager",
+    "HRManager": "H R Manager",
+    "Menu:HRManagers": "H R Managers",
+    "HRNumber": "H R Number",
+    "Department": "Department",
+    "MinHRNumber": "Min H R Number",
+    "MinDepartment": "Min Department",
+    "MaxHRNumber": "Max H R Number",
+    "MaxDepartment": "Max Department"
   }
 }

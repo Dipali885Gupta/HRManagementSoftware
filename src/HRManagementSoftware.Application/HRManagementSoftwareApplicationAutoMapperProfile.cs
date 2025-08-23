@@ -1,3 +1,4 @@
+using HRManagementSoftware.HRManagers;
 using HRManagementSoftware.LeaveRequests;
 using System;
 using HRManagementSoftware.Shared;
@@ -25,5 +26,9 @@ public class HRManagementSoftwareApplicationAutoMapperProfile : Profile
         CreateMap<LeaveRequest, LeaveRequestExcelDto>();
         CreateMap<LeaveRequestWithNavigationProperties, LeaveRequestWithNavigationPropertiesDto>();
         CreateMap<Employee, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.EmployeeNumber));
+
+        CreateMap<HRManager, HRManagerDto>();
+        CreateMap<HRManager, HRManagerExcelDto>();
+        CreateMap<HRManagerWithNavigationProperties, HRManagerWithNavigationPropertiesDto>();
     }
 }

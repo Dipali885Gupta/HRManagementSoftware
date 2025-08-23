@@ -26,6 +26,11 @@ public class HRManagementSoftwarePermissionDefinitionProvider : PermissionDefini
         leaveRequestPermission.AddChild(HRManagementSoftwarePermissions.LeaveRequests.Create, L("Permission:Create"));
         leaveRequestPermission.AddChild(HRManagementSoftwarePermissions.LeaveRequests.Edit, L("Permission:Edit"));
         leaveRequestPermission.AddChild(HRManagementSoftwarePermissions.LeaveRequests.Delete, L("Permission:Delete"));
+
+        var hRManagerPermission = myGroup.AddPermission(HRManagementSoftwarePermissions.HRManagers.Default, L("Permission:HRManagers"));
+        hRManagerPermission.AddChild(HRManagementSoftwarePermissions.HRManagers.Create, L("Permission:Create"));
+        hRManagerPermission.AddChild(HRManagementSoftwarePermissions.HRManagers.Edit, L("Permission:Edit"));
+        hRManagerPermission.AddChild(HRManagementSoftwarePermissions.HRManagers.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

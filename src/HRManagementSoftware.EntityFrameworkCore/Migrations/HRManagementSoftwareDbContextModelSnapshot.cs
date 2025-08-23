@@ -117,6 +117,75 @@ namespace HRManagementSoftware.Migrations
                     b.ToTable("AppEmployees", (string)null);
                 });
 
+            modelBuilder.Entity("HRManagementSoftware.HRManagers.HRManager", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasMaxLength(1000000)
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Department");
+
+                    b.Property<string>("ExtraProperties")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<string>("HRNumber")
+                        .IsRequired()
+                        .HasMaxLength(1000000)
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("HRNumber");
+
+                    b.Property<Guid?>("IdentityUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("AppHRManagers", (string)null);
+                });
+
             modelBuilder.Entity("HRManagementSoftware.LeaveRequests.LeaveRequest", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2565,6 +2634,14 @@ namespace HRManagementSoftware.Migrations
                 });
 
             modelBuilder.Entity("HRManagementSoftware.Employees.Employee", b =>
+                {
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("HRManagementSoftware.HRManagers.HRManager", b =>
                 {
                     b.HasOne("Volo.Abp.Identity.IdentityUser", null)
                         .WithMany()

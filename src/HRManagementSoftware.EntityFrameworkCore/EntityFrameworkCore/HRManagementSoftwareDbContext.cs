@@ -1,3 +1,4 @@
+using HRManagementSoftware.HRManagers;
 using HRManagementSoftware.LeaveRequests;
 using HRManagementSoftware.Employees;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ public class HRManagementSoftwareDbContext :
     ISaasDbContext,
     IIdentityProDbContext
 {
+    public DbSet<HRManager> HRManagers { get; set; } = null!;
     public DbSet<LeaveRequest> LeaveRequests { get; set; } = null!;
     public DbSet<Employee> Employees { get; set; } = null!;
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
@@ -132,6 +134,18 @@ public class HRManagementSoftwareDbContext :
                 b.Property(x => x.Reason).HasColumnName(nameof(LeaveRequest.Reason)).IsRequired().HasMaxLength(LeaveRequestConsts.ReasonMaxLength);
                 b.Property(x => x.RequestDate).HasColumnName(nameof(LeaveRequest.RequestDate));
                 b.HasOne<Employee>().WithMany().HasForeignKey(x => x.EmployeeId).OnDelete(DeleteBehavior.SetNull);
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<HRManager>(b =>
+            {
+                b.ToTable(HRManagementSoftwareConsts.DbTablePrefix + "HRManagers", HRManagementSoftwareConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.HRNumber).HasColumnName(nameof(HRManager.HRNumber)).IsRequired().HasMaxLength(HRManagerConsts.HRNumberMaxLength);
+                b.Property(x => x.Department).HasColumnName(nameof(HRManager.Department)).IsRequired().HasMaxLength(HRManagerConsts.DepartmentMaxLength);
+                b.HasOne<IdentityUser>().WithMany().HasForeignKey(x => x.IdentityUserId).OnDelete(DeleteBehavior.SetNull);
             });
 
         }

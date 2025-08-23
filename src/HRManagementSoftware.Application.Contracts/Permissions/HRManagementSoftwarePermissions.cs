@@ -29,4 +29,12 @@ public static class HRManagementSoftwarePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+
+    public static class HRManagers
+    {
+        public const string Default = GroupName + ".HRManagers";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }
