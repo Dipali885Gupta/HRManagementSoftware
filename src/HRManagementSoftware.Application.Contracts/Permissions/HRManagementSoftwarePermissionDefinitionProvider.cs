@@ -31,6 +31,11 @@ public class HRManagementSoftwarePermissionDefinitionProvider : PermissionDefini
         hRManagerPermission.AddChild(HRManagementSoftwarePermissions.HRManagers.Create, L("Permission:Create"));
         hRManagerPermission.AddChild(HRManagementSoftwarePermissions.HRManagers.Edit, L("Permission:Edit"));
         hRManagerPermission.AddChild(HRManagementSoftwarePermissions.HRManagers.Delete, L("Permission:Delete"));
+
+        var payrollAdjustmentPermission = myGroup.AddPermission(HRManagementSoftwarePermissions.PayrollAdjustments.Default, L("Permission:PayrollAdjustments"));
+        payrollAdjustmentPermission.AddChild(HRManagementSoftwarePermissions.PayrollAdjustments.Create, L("Permission:Create"));
+        payrollAdjustmentPermission.AddChild(HRManagementSoftwarePermissions.PayrollAdjustments.Edit, L("Permission:Edit"));
+        payrollAdjustmentPermission.AddChild(HRManagementSoftwarePermissions.PayrollAdjustments.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

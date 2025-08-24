@@ -1,3 +1,5 @@
+using HRManagementSoftware.PayrollAdjustments;
+
 using HRManagementSoftware.HRManagers;
 
 using HRManagementSoftware.LeaveRequests;
@@ -62,6 +64,8 @@ public class HRManagementSoftwareEntityFrameworkCoreModule : AbpModule
             options.AddRepository<LeaveRequest, LeaveRequests.EfCoreLeaveRequestRepository>();
 
             options.AddRepository<HRManager, HRManagers.EfCoreHRManagerRepository>();
+
+            options.AddRepository<PayrollAdjustment, PayrollAdjustments.EfCorePayrollAdjustmentRepository>();
 
         });
 

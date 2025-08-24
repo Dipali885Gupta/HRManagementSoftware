@@ -127,6 +127,25 @@
     "MinHRNumber": "Min H R Number",
     "MinDepartment": "Min Department",
     "MaxHRNumber": "Max H R Number",
-    "MaxDepartment": "Max Department"
+    "MaxDepartment": "Max Department",
+    "Enum:PayrollRecordStatus.0": "Pending",
+    "Enum:PayrollRecordStatus.1": "Processed",
+    "Permission:PayrollAdjustments": "Payroll Adjustments",
+    "PayrollAdjustments": "Payroll Adjustments",
+    "NewPayrollAdjustment": "New Payroll Adjustment",
+    "PayrollAdjustment": "Payroll Adjustment",
+    "Menu:PayrollAdjustments": "Payroll Adjustments",
+    "Month": "Month",
+    "Year": "Year",
+    "Status": "Status",
+    "Netpay": "Netpay",
+    "MinMonth": "Min Month",
+    "MinYear": "Min Year",
+    "MinStatus": "Min Status",
+    "MinNetpay": "Min Netpay",
+    "MaxMonth": "Max Month",
+    "MaxYear": "Max Year",
+    "MaxStatus": "Max Status",
+    "MaxNetpay": "Max Netpay"
   }
 }

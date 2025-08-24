@@ -30,6 +30,7 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
 import { EMPLOYEES_EMPLOYEE_ROUTE_PROVIDER } from './employees/employee/providers/employee-route.provider';
 import { LEAVE_REQUESTS_LEAVE_REQUEST_ROUTE_PROVIDER } from './leave-requests/leave-request/providers/leave-request-route.provider';
 import { HRMANAGERS_HRMANAGER_ROUTE_PROVIDER } from './hrmanagers/hrmanager/providers/hrmanager-route.provider';
+import { PAYROLL_ADJUSTMENTS_PAYROLL_ADJUSTMENT_ROUTE_PROVIDER } from './payroll-adjustments/payroll-adjustment/providers/payroll-adjustment-route.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -78,5 +79,6 @@ export const appConfig: ApplicationConfig = {
     EMPLOYEES_EMPLOYEE_ROUTE_PROVIDER,
     LEAVE_REQUESTS_LEAVE_REQUEST_ROUTE_PROVIDER,
     HRMANAGERS_HRMANAGER_ROUTE_PROVIDER,
+    PAYROLL_ADJUSTMENTS_PAYROLL_ADJUSTMENT_ROUTE_PROVIDER,
   ],
 };

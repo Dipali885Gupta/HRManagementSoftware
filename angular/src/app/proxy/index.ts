@@ -1,8 +1,10 @@
 import * as Employees from './employees';
 import * as Hrmanagers from './hrmanagers';
 import * as LeaveRequests from './leave-requests';
+import * as PayrollAdjustments from './payroll-adjustments';
 import * as Shared from './shared';
 import * as Volo from './volo';
 export * from './leave-status.enum';
 export * from './leave-type.enum';
-export { Employees, Hrmanagers, LeaveRequests, Shared, Volo };
+export * from './payroll-record-status.enum';
+export { Employees, Hrmanagers, LeaveRequests, PayrollAdjustments, Shared, Volo };

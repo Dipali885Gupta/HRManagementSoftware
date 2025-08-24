@@ -1,3 +1,4 @@
+using HRManagementSoftware.PayrollAdjustments;
 using HRManagementSoftware.HRManagers;
 using HRManagementSoftware.LeaveRequests;
 using System;
@@ -30,5 +31,10 @@ public class HRManagementSoftwareApplicationAutoMapperProfile : Profile
         CreateMap<HRManager, HRManagerDto>();
         CreateMap<HRManager, HRManagerExcelDto>();
         CreateMap<HRManagerWithNavigationProperties, HRManagerWithNavigationPropertiesDto>();
+
+        CreateMap<PayrollAdjustment, PayrollAdjustmentDto>();
+        CreateMap<PayrollAdjustment, PayrollAdjustmentExcelDto>();
+        CreateMap<PayrollAdjustmentWithNavigationProperties, PayrollAdjustmentWithNavigationPropertiesDto>();
+        CreateMap<LeaveRequest, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Reason));
     }
 }

@@ -1,0 +1,9 @@
+using HRManagementSoftware.PayrollAdjustments;
+using Xunit;
+using HRManagementSoftware.EntityFrameworkCore;
+
+namespace HRManagementSoftware.PayrollAdjustments;
+
+public class EfCorePayrollAdjustmentsAppServiceTests : PayrollAdjustmentsAppServiceTests<HRManagementSoftwareEntityFrameworkCoreTestModule>
+{
+}
