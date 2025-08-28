@@ -27,7 +27,7 @@ export class HRManagerService {
     this.restService.request<any, HRManagerDto>(
       {
         method: 'POST',
-        url: '/api/app/hrmanagers',
+        url: '/api/app/h-rManagers',
         body: input,
       },
       { apiName: this.apiName, ...config },
@@ -37,7 +37,7 @@ export class HRManagerService {
     this.restService.request<any, void>(
       {
         method: 'DELETE',
-        url: `/api/app/hrmanagers/${id}`,
+        url: `/api/app/h-rManagers/${id}`,
       },
       { apiName: this.apiName, ...config },
     );
@@ -46,7 +46,7 @@ export class HRManagerService {
     this.restService.request<any, void>(
       {
         method: 'DELETE',
-        url: '/api/app/hrmanagers/all',
+        url: '/api/app/h-rManagers/all',
         params: {
           filterText: input.filterText,
           sorting: input.sorting,
@@ -64,7 +64,7 @@ export class HRManagerService {
     this.restService.request<any, void>(
       {
         method: 'DELETE',
-        url: '/api/app/hrmanagers',
+        url: '/api/app/h-rManagers',
         params: { hRManagerIds },
       },
       { apiName: this.apiName, ...config },
@@ -74,7 +74,7 @@ export class HRManagerService {
     this.restService.request<any, HRManagerDto>(
       {
         method: 'GET',
-        url: `/api/app/hrmanagers/${id}`,
+        url: `/api/app/h-rManagers/${id}`,
       },
       { apiName: this.apiName, ...config },
     );
@@ -83,7 +83,7 @@ export class HRManagerService {
     this.restService.request<any, DownloadTokenResultDto>(
       {
         method: 'GET',
-        url: '/api/app/hrmanagers/download-token',
+        url: '/api/app/h-rManagers/download-token',
       },
       { apiName: this.apiName, ...config },
     );
@@ -93,7 +93,7 @@ export class HRManagerService {
       {
         method: 'GET',
         responseType: 'blob',
-        url: '/api/app/hrmanagers/file',
+        url: '/api/app/h-rManagers/file',
         params: { downloadToken: input.downloadToken, fileId: input.fileId },
       },
       { apiName: this.apiName, ...config },
@@ -103,7 +103,7 @@ export class HRManagerService {
     this.restService.request<any, PagedResultDto<LookupDto<string>>>(
       {
         method: 'GET',
-        url: '/api/app/hrmanagers/identity-user-lookup',
+        url: '/api/app/h-rManagers/identity-user-lookup',
         params: {
           filter: input.filter,
           skipCount: input.skipCount,
@@ -117,7 +117,7 @@ export class HRManagerService {
     this.restService.request<any, PagedResultDto<HRManagerWithNavigationPropertiesDto>>(
       {
         method: 'GET',
-        url: '/api/app/hrmanagers',
+        url: '/api/app/h-rManagers',
         params: {
           filterText: input.filterText,
           sorting: input.sorting,
@@ -136,7 +136,7 @@ export class HRManagerService {
       {
         method: 'GET',
         responseType: 'blob',
-        url: '/api/app/hrmanagers/as-excel-file',
+        url: '/api/app/h-rManagers/as-excel-file',
         params: {
           downloadToken: input.downloadToken,
           filterText: input.filterText,
@@ -152,7 +152,7 @@ export class HRManagerService {
     this.restService.request<any, HRManagerWithNavigationPropertiesDto>(
       {
         method: 'GET',
-        url: `/api/app/hrmanagers/with-navigation-properties/${id}`,
+        url: `/api/app/h-rManagers/with-navigation-properties/${id}`,
       },
       { apiName: this.apiName, ...config },
     );
@@ -161,7 +161,7 @@ export class HRManagerService {
     this.restService.request<any, HRManagerDto>(
       {
         method: 'PUT',
-        url: `/api/app/hrmanagers/${id}`,
+        url: `/api/app/h-rManagers/${id}`,
         body: input,
       },
       { apiName: this.apiName, ...config },
@@ -171,7 +171,7 @@ export class HRManagerService {
     this.restService.request<any, AppFileDescriptorDto>(
       {
         method: 'POST',
-        url: '/api/app/hrmanagers/upload-file',
+        url: '/api/app/h-rManagers/upload-file',
         body: input,
       },
       { apiName: this.apiName, ...config },

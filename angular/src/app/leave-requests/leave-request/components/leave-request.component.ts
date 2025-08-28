@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -24,6 +24,8 @@ import {
   AdvancedEntityFiltersFormComponent,
   LookupSelectComponent,
 } from '@volo/abp.commercial.ng.ui';
+import { LeaveRequestService } from '../../../proxy/leave-requests';
+import { LeaveStatus } from '../../../proxy/leave-status.enum';
 import { LeaveRequestViewService } from '../services/leave-request.service';
 import { LeaveRequestDetailViewService } from '../services/leave-request-detail.service';
 import { LeaveRequestDetailModalComponent } from './leave-request-detail.component';
@@ -74,4 +76,64 @@ import {
     }
   `,
 })
-export class LeaveRequestComponent extends AbstractLeaveRequestComponent {}
+export class LeaveRequestComponent extends AbstractLeaveRequestComponent {
+  private readonly leaveRequestApi = inject(LeaveRequestService);
+
+  customModel: any = {
+    employeeNumber: '',
+    leaveType: null,
+    startDate: null,
+    endDate: null,
+    reason: '',
+  };
+
+  isSubmitting = false;
+
+  // Reset form method
+  resetForm(): void {
+    this.customModel = {
+      employeeNumber: '',
+      leaveType: null,
+      startDate: null,
+      endDate: null,
+      reason: '',
+    };
+  }
+
+  // Enhanced submit method with better error handling
+  submitCustom(): void {
+    if (this.isSubmitting) return;
+
+    // Basic validation
+    if (!this.customModel.leaveType || !this.customModel.startDate || !this.customModel.endDate) {
+      // Show validation message or use Angular form validation
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    const payload = {
+      leaveType: this.customModel.leaveType,
+      leaveStatus: LeaveStatus.Pending,
+      startDate: this.customModel.startDate ?? undefined,
+      endDate: this.customModel.endDate ?? undefined,
+      reason: this.customModel.reason,
+      employeeId: undefined, // Map this to actual employee ID
+    } as any;
+
+    this.leaveRequestApi.create(payload).subscribe({
+      next: (response) => {
+        this.list.get();
+        this.resetForm();
+        // Show success message
+      },
+      error: (error) => {
+        this.isSubmitting = false;
+        // Show error message
+      },
+      complete: () => {
+        this.isSubmitting = false;
+      },
+    });
+  }
+}

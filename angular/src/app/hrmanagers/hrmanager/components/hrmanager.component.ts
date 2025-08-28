@@ -68,10 +68,66 @@ import {
     { provide: NgbTimeAdapter, useClass: TimeAdapter },
   ],
   templateUrl: './hrmanager.component.html',
+  styleUrls: ['./hrmanager.component.scss'],
   styles: `
     ::ng-deep.datatable-row-detail {
       background: transparent !important;
     }
   `,
 })
-export class HRManagerComponent extends AbstractHRManagerComponent {}
+export class HRManagerComponent extends AbstractHRManagerComponent {
+  // Hardcoded HR Number as requested
+  hrNumber = 'HR001';
+
+  // Dummy data for leave requests that need approval
+  leaveRequests = [
+    {
+      empno: 'EMP001',
+      reason: 'Medical leave',
+      startdate: '2024-01-15',
+      enddate: '2024-01-20',
+      leavereqid: 'LR001',
+      reqdate: '2024-01-10',
+      status: 'Pending'
+    },
+    {
+      empno: 'EMP002',
+      reason: 'Vacation',
+      startdate: '2024-02-01',
+      enddate: '2024-02-05',
+      leavereqid: 'LR002',
+      reqdate: '2024-01-28',
+      status: 'Pending'
+    },
+    {
+      empno: 'EMP003',
+      reason: 'Personal matters',
+      startdate: '2024-03-10',
+      enddate: '2024-03-12',
+      leavereqid: 'LR003',
+      reqdate: '2024-03-05',
+      status: 'Pending'
+    }
+  ];
+
+  getStatusClass(status: string): string {
+    switch(status.toLowerCase()) {
+      case 'approved': return 'status-approved';
+      case 'rejected': return 'status-rejected';
+      case 'pending': return 'status-pending';
+      default: return '';
+    }
+  }
+
+  approveRequest(request: any) {
+    request.status = 'Approved';
+    // Here you would typically call your backend API to update the status
+    console.log('Approved request:', request.leavereqid);
+  }
+
+  rejectRequest(request: any) {
+    request.status = 'Rejected';
+    // Here you would typically call your backend API to update the status
+    console.log('Rejected request:', request.leavereqid);
+  }
+}

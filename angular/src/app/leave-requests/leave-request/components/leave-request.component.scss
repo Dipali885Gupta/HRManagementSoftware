@@ -1,0 +1,103 @@
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.card {
+  transition: all 0.3s ease;
+  border-radius: 15px !important;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.form-floating {
+  position: relative;
+  
+  .form-control,
+  .form-select {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      transform: translateY(-1px);
+    }
+  }
+  
+  label {
+    color: #6c757d;
+    font-weight: 500;
+  }
+}
+
+.btn {
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &.loading {
+    position: relative;
+    color: transparent !important;
+    
+    .fa-spinner {
+      color: white !important;
+    }
+  }
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: none;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #218838 0%, #1e7e5c 100%);
+  }
+}
+
+.action-buttons {
+  .btn {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.page-stats h5 {
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+  .card-header {
+    text-align: center;
+  }
+  
+  .d-md-flex {
+    flex-direction: column !important;
+    
+    .btn {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+// Animation for form validation
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+  border-color: #dc3545;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
