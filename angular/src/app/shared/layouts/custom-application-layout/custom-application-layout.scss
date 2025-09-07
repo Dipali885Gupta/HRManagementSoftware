@@ -207,3 +207,23 @@
     display: none !important;
   }
 }
+
+// Main content area padding
+.lpx-content-container {
+  padding: 15px;
+  margin-top: 58px; /* Push content below header */
+  transition: all 0.3s ease;
+}
+
+/* Responsive padding for mobile/tablet */
+@media (max-width: 991px) {
+  .lpx-content-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lpx-content-container {
+    padding: 10px;
+  }
+}
