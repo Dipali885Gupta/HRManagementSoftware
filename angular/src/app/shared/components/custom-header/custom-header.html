@@ -26,6 +26,10 @@
                 <!-- Right Side - Action Buttons -->
                 <div class="d-flex align-items-center">
                     <div class="header-action-buttons">
+                        <button class="action-btn" (click)="toggleActivitiesModal()" title="Recent Activities">
+                            <i class="bi bi-bell-fill"></i>
+                            <span class="notification-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+                        </button>
                         <button class="action-btn" routerLink="/settings" title="Settings">
                             <i class="bi bi-gear-fill"></i>
                         </button>
@@ -41,3 +45,9 @@
         </div>
     </div>
 </div>
+
+<!-- Recent Activities Modal -->
+<app-recent-activities-modal
+  [isVisible]="showActivitiesModal"
+  (close)="onModalClose()">
+</app-recent-activities-modal>

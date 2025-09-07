@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RecentActivitiesModal } from '../recent-activities-modal/recent-activities-modal';
 
 @Component({
   selector: 'app-custom-header',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, RecentActivitiesModal],
   templateUrl: './custom-header.html',
   styleUrl: './custom-header.scss'
 })
@@ -12,6 +14,8 @@ export class CustomHeader implements OnInit, OnDestroy {
   @HostBinding('attr.data-theme') currentTheme: string = 'light';
 
   private themeObserver: MutationObserver | null = null;
+  showActivitiesModal = false;
+  unreadCount = 3; // Sample unread count
 
   constructor(private router: Router) {}
 
@@ -53,6 +57,18 @@ export class CustomHeader implements OnInit, OnDestroy {
       attributes: true,
       attributeFilter: ['class']
     });
+  }
+
+  toggleActivitiesModal(): void {
+    this.showActivitiesModal = !this.showActivitiesModal;
+    if (this.showActivitiesModal) {
+      // Reset unread count when opening modal
+      this.unreadCount = 0;
+    }
+  }
+
+  onModalClose(): void {
+    this.showActivitiesModal = false;
   }
 
   logout(): void {

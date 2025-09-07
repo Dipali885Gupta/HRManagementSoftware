@@ -1,0 +1,78 @@
+<!-- Recent Activities Modal Template -->
+<div class="modal-backdrop" (click)="closeModal()" *ngIf="isVisible">
+  <div class="activities-modal" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="modal-title">
+        <i class="bi bi-activity"></i>
+        <span>Recent Activities & Updates</span>
+      </div>
+      <button class="close-btn" (click)="closeModal()" title="Close">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <!-- Tabs -->
+      <div class="activity-tabs">
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'activities'"
+          (click)="activeTab = 'activities'">
+          <i class="bi bi-clock-history"></i>
+          Recent Activities
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'updates'"
+          (click)="activeTab = 'updates'">
+          <i class="bi bi-bell"></i>
+          Daily Updates
+        </button>
+      </div>
+
+      <!-- Activities List -->
+      <div class="activities-list" *ngIf="activeTab === 'activities'">
+        <div class="activity-item" *ngFor="let activity of activities">
+          <div class="activity-icon" [ngClass]="activity.type">
+            <i [class]="getActivityIcon(activity.type)"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">{{ activity.title }}</div>
+            <div class="activity-description">{{ activity.description }}</div>
+            <div class="activity-meta">
+              <span class="activity-time">{{ formatTime(activity.timestamp) }}</span>
+              <span class="activity-user" *ngIf="activity.user">by {{ activity.user }}</span>
+            </div>
+          </div>
+          <div class="activity-status" *ngIf="activity.status">
+            <span class="status-badge" [ngClass]="activity.status">
+              {{ activity.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Updates List -->
+      <div class="updates-list" *ngIf="activeTab === 'updates'">
+        <div class="update-item" *ngFor="let update of dailyUpdates">
+          <div class="update-icon">
+            <i class="bi bi-info-circle-fill"></i>
+          </div>
+          <div class="update-content">
+            <div class="update-title">{{ update.title }}</div>
+            <div class="update-description">{{ update.description }}</div>
+            <div class="update-time">{{ formatTime(update.timestamp) }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="closeModal()">Close</button>
+      <button class="btn-primary" (click)="viewAll()">View All</button>
+    </div>
+  </div>
+</div>
