@@ -1,0 +1,170 @@
+/* Left Sidebar Custom Styles for HR Management Software */
+
+/* Left Sidebar Custom Styles for HR Management Software */
+
+/* Custom CSS to position sidebars below chat-search header */
+.lpx-custom-sidebar-container {
+  &.lpx-sidebar-container {
+    position: fixed !important;
+    top: 58px !important;
+    ::ng-deep.lpx-sidebar-custom {
+      padding-bottom: 180px;
+    }
+    ::ng-deep.lpx-sidebar.lpx-scroll-container {
+      height: auto !important;
+      min-height: auto !important;
+      overflow-y: auto;
+      max-height: calc(100vh - 58px - 180px);
+    }
+    ::ng-deep.lpx-nav {
+      padding-top: 15px;
+      height: auto !important;
+      ::ng-deep.lpx-logo-container {
+        display: none !important;
+      }
+    }
+  }
+}
+
+/* Fix for duplicate filter/search menus in sidebar */
+::ng-deep .lpx-custom-sidebar-container {
+  // Hide all duplicate filter menus - only keep the first one
+  .lpx-menu-filter:not(:first-of-type) {
+    display: none !important;
+  }
+
+  // Hide duplicate search inputs
+  input[type="search"]:not(:first-of-type),
+  .search-input:not(:first-of-type),
+  .form-control[placeholder*="search"]:not(:first-of-type),
+  .form-control[placeholder*="Search"]:not(:first-of-type),
+  .form-control[placeholder*="filter"]:not(:first-of-type),
+  .form-control[placeholder*="Filter"]:not(:first-of-type) {
+    display: none !important;
+  }
+
+  // Hide any search/filter components that might be duplicated in navbar
+  lpx-navbar .lpx-menu-filter:not(:first-of-type) {
+    display: none !important;
+  }
+
+  // If there are multiple lpx-navbar components, hide search in all but first
+  lpx-navbar:not(:first-of-type) .lpx-menu-filter {
+    display: none !important;
+  }
+}
+
+/* User Menu Styles */
+::ng-deep.custom-avatar {
+  .lpx-context-menu {
+    &.show {
+      left: 72px;
+      bottom: 10px;
+      position: fixed;
+    }
+    .outer-menu-item {
+      .lpx-menu-item-link {
+        .lpx-menu-item-text {
+          display: block !important;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep.custom-avatar .lpx-toolbar nav.lpx-toolbar {
+  left: 0;
+  top: auto;
+  bottom: 38px;
+  .lpx-user-menu {
+    .lpx-menu-item-link {
+      height: auto;
+    }
+  }
+}
+
+::ng-deep.lpx-toolbar-user-sidebar {
+  ::ng-deep.lpx-context-menu {
+    &.show {
+      left: 15px;
+      bottom: 100px;
+    }
+  }
+}
+
+/* Settings and Toolbar Styles */
+::ng-deep.lpx-sidebar-container.lpx-toolbar-container .lpx-nav-menu .lpx-menu-item-link {
+  padding: 0 10px !important;
+}
+
+::ng-deep.lpx-sidebar-container.lpx-toolbar-container .lpx-settings {
+  display: flex !important;
+  justify-content: space-between;
+  min-width: 280px;
+
+  .setting-icon {
+    padding: 0 25px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+  .lpx-custom-sidebar-container {
+    display: none; /* Hide on mobile/tablet */
+  }
+}
+
+/* Hover States */
+.lpx-custom-sidebar-container:hover {
+  ::ng-deep.lpx-toolbar-lpx-nav-menu {
+    display: flex !important;
+    .lpx-menu-item-link {
+      padding: 0 10px !important;
+    }
+  }
+  ::ng-deep.lpx-settings {
+    display: flex !important;
+    justify-content: space-between;
+    min-width: 280px;
+    .setting-icon {
+      padding: 0 25px;
+    }
+  }
+}
+
+/* Theme Support */
+:host-context(.lpx-theme-dark) {
+  .lpx-sidebar .lpx-scroll-container .p-2 {
+    h5 {
+      color: #ffffff;
+    }
+    .lpx-nav-menu .lpx-menu-item-link {
+      color: #ffffff;
+      &:hover {
+        background: rgba(77, 171, 247, 0.1);
+        color: #4dabf7;
+      }
+      i {
+        color: #a0aec0;
+      }
+    }
+  }
+}
+
+:host-context(.lpx-theme-dim) {
+  .lpx-sidebar .lpx-scroll-container .p-2 {
+    h5 {
+      color: #ffffff;
+    }
+    .lpx-nav-menu .lpx-menu-item-link {
+      color: #e2e8f0;
+      &:hover {
+        background: rgba(99, 179, 237, 0.1);
+        color: #63b3ed;
+      }
+      i {
+        color: #a0aec0;
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ import { CoreModule } from '@abp/ng.core';
     EmployeeViewService,
     EmployeeDetailViewService,
     { provide: NgbDateAdapter, useClass: DateAdapter },
-    { provide: NgbTimeAdapter, useClass: TimeAdapter }
+    { provide: NgbTimeAdapter , useClass: TimeAdapter }
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,40 @@
+<ng-container *lpxResponsive="'all md-none'">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-container>
+<ng-container *lpxResponsive="'md'">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-container>
+
+<ng-template #content>
+  <div id="lpx-wrapper" class="fixed hover-trigger initial-hover">
+    <!-- Custom Top Bar -->
+    <!-- <div class="custom-top-bar">
+      <div class="lpx-logo-container fw-bold">
+        <a routerLink="/" href="/" class="d-flex">
+          <div class="lpx-brand-logo"></div>
+        </a>
+        <span class="vertical-line"></span>
+        <span class="site-header">IFS</span>
+        <span class="vertical-line"></span>
+        <span class="site-sub-header">{{ loggedInTenant }}</span>
+      </div>
+    </div> -->
+
+    <!-- Layout Container with Sidebars -->
+    <app-custom-header></app-custom-header>
+    <!-- Left Sidebar -->
+    <app-left-sidebar-custom *lpxResponsive="'md'"></app-left-sidebar-custom>
+
+    <!-- Main Content Area -->
+    <div class="lpx-content-container">
+      <div class="d-flex flex-column justify-content-between h-100 w-100">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <app-right-sidebar-custom></app-right-sidebar-custom>
+
+    <lpx-mobile-navbar *lpxResponsive="'all md-none'"></lpx-mobile-navbar>
+  </div>
+</ng-template>

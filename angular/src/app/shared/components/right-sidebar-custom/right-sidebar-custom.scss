@@ -1,0 +1,176 @@
+/* Right Sidebar Custom Styles for HR Management Software */
+
+.right-sidebar {
+  background: var(--lpx-sidebar-bg, #ffffff);
+  border-left: 1px solid var(--lpx-border-color, #dee2e6);
+  position: fixed;
+  right: 0;
+  top: 64px; /* Header height */
+  width: 280px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Section Headers */
+.right-sidebar-section {
+  border-bottom: 1px solid var(--lpx-border-color, #dee2e6);
+  margin-bottom: 1rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .section-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--lpx-text-color, #495057);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+
+    i {
+      color: #007bff;
+      font-size: 16px;
+    }
+  }
+}
+
+/* HR Policies Cards */
+.policy-cards-container {
+  .card {
+    transition: all 0.3s ease;
+    border: 1px solid var(--lpx-border-color, #dee2e6);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background: var(--lpx-card-bg, #ffffff);
+      border-bottom: 1px solid var(--lpx-border-color, #dee2e6);
+      padding: 0.75rem;
+
+      h6 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--lpx-text-color, #495057);
+      }
+
+      small {
+        font-size: 11px;
+        color: var(--lpx-text-muted, #6c757d);
+      }
+
+      .badge {
+        font-size: 10px;
+        padding: 4px 8px;
+      }
+    }
+  }
+}
+
+/* Theme Support */
+:host-context(.lpx-theme-dark) {
+  .right-sidebar {
+    background: #1a1a1a;
+    border-left-color: #404040;
+  }
+
+  .section-header {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+
+    i {
+      color: #4dabf7;
+    }
+  }
+
+  .policy-cards-container .card {
+    background: #2d3748;
+    border-color: #4a5568;
+
+    .card-header {
+      background: #2d3748;
+      border-bottom-color: #4a5568;
+
+      h6, strong {
+        color: #ffffff;
+      }
+
+      small {
+        color: #a0aec0;
+      }
+    }
+  }
+}
+
+:host-context(.lpx-theme-dim) {
+  .right-sidebar {
+    background: #2d3748;
+    border-left-color: #4a5568;
+  }
+
+  .section-header {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+
+    i {
+      color: #63b3ed;
+    }
+  }
+
+  .policy-cards-container .card {
+    background: #1a202c;
+    border-color: #2d3748;
+
+    .card-header {
+      background: #1a202c;
+      border-bottom-color: #2d3748;
+
+      h6, strong {
+        color: #ffffff;
+      }
+
+      small {
+        color: #a0aec0;
+      }
+    }
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991px) {
+  .right-sidebar {
+    display: none; /* Hide on mobile/tablet */
+  }
+}
+
+/* Hover States */
+.right-sidebar:hover {
+  .section-header {
+    background: rgba(0, 123, 255, 0.15);
+  }
+}
+
+/* Scrollbar Styling */
+.right-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.right-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 123, 255, 0.3);
+  border-radius: 3px;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 123, 255, 0.5);
+}

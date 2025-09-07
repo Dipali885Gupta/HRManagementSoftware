@@ -1,0 +1,209 @@
+
+// OverRides SCSS Starts
+::ng-deep.custom-avatar {
+  .lpx-context-menu {
+    &.show {
+      left: 72px;
+      bottom: 10px;
+      position: fixed;
+    }
+    .outer-menu-item {
+      .lpx-menu-item-link {
+        .lpx-menu-item-text {
+          display: block !important;
+        }
+      }
+    }
+  }
+}
+::ng-deep.custom-avatar .lpx-toolbar nav.lpx-toolbar {
+  left: 0;
+  top: auto;
+  bottom: 38px;
+  .lpx-user-menu {
+    .lpx-menu-item-link {
+      height: auto;
+    }
+  }
+}
+
+::ng-deep.lpx-toolbar-user-sidebar {
+  ::ng-deep.lpx-context-menu {
+    &.show {
+      left: 15px;
+      bottom: 100px;
+    }
+  }
+}
+::ng-deep.lpx-sidebar-container.lpx-toolbar-container .lpx-nav-menu .lpx-menu-item-link {
+  padding: 0 10px !important;
+}
+::ng-deep.lpx-sidebar-container.lpx-toolbar-container .lpx-settings {
+  display: flex !important;
+  justify-content: space-between;
+  min-width: 280px;
+
+  .setting-icon {
+    padding: 0 25px;
+  }
+}
+.right-sidebar-section {
+  .section-header {
+    font-size: 16px;
+  }
+}
+::ng-deep.lpx-sidebar-container.lpx-toolbar-container {
+  position: fixed !important;
+  top: 58px !important;
+  ::ng-deep.lpx-context-menu {
+    &.show {
+      bottom: 20px !important;
+    }
+  }
+  ::ng-deep.lpx-menu-item-link {
+    ::ng-deep.lpx-menu-item-text {
+      &.hidden-in-hover-trigger {
+        display: block !important;
+      }
+    }
+  }
+  &:hover {
+    min-width: 280px !important;
+    .right-sidebar-section {
+      .section-header {
+        justify-content: start !important;
+      }
+    }
+    ::ng-deep.lpx-toolbar-lpx-nav-menu {
+      @media only screen and (max-width: 1199px) {
+        display: flex !important;
+
+        .lpx-menu-item-link {
+          padding: 0 10px !important;
+        }
+      }
+    }
+    ::ng-deep.lpx-settings {
+      @media only screen and (max-width: 1199px) {
+        display: flex !important;
+        justify-content: space-between;
+        min-width: 280px;
+
+        .setting-icon {
+          padding: 0 25px;
+        }
+      }
+    }
+  }
+  ::ng-deep.lpx-toolbar-lpx-nav-menu {
+    @media only screen and (max-width: 1199px) {
+      display: inherit !important;
+
+      .lpx-menu-item-link {
+        padding: 0 18px !important;
+      }
+    }
+  }
+  ::ng-deep.lpx-settings {
+    @media only screen and (max-width: 1199px) {
+      display: inherit !important;
+      min-width: inherit;
+
+      .setting-icon {
+        padding: 0 25px;
+      }
+    }
+  }
+}
+::ng-deep.hover-trigger {
+  ::ng-deep.lpx-sidebar-container.lpx-toolbar-container {
+    ::ng-deep.lpx-toolbar-lpx-nav-menu {
+      display: inherit !important;
+
+      .lpx-menu-item-link {
+        padding: 0 18px !important;
+      }
+    }
+    ::ng-deep.lpx-settings {
+      display: inherit !important;
+      min-width: inherit;
+
+      .setting-icon {
+        padding: 0 25px;
+      }
+    }
+  }
+  ::ng-deep.lpx-sidebar-container.lpx-toolbar-container {
+    &:hover {
+      ::ng-deep.lpx-toolbar-lpx-nav-menu {
+        display: flex !important;
+
+        .lpx-menu-item-link {
+          padding: 0 10px !important;
+        }
+      }
+      ::ng-deep.lpx-settings {
+        display: flex !important;
+        justify-content: space-between;
+        min-width: 280px;
+
+        .setting-icon {
+          padding: 0 25px;
+        }
+      }
+    }
+  }
+}
+.settings-context-menu-custom-cls {
+  bottom: 20px !important;
+}
+
+// Custom CSS to position sidebars below chat-search header
+.lpx-custom-sidebar-container {
+  &.lpx-sidebar-container {
+    position: fixed !important;
+    top: 58px !important;
+    ::ng-deep.lpx-sidebar-custom {
+      padding-bottom: 180px;
+    }
+    ::ng-deep.lpx-sidebar.lpx-scroll-container {
+      height: auto !important;
+      min-height: auto !important;
+    }
+    ::ng-deep.lpx-nav {
+      padding-top: 15px;
+      height: auto !important;
+      ::ng-deep.lpx-logo-container {
+        display:  none !important;
+      }
+    }
+  }
+}
+
+// Fix for duplicate filter/search menus in sidebar
+::ng-deep .lpx-custom-sidebar-container {
+  // Hide all duplicate filter menus - only keep the first one
+  .lpx-menu-filter:not(:first-of-type) {
+    display: none !important;
+  }
+
+  // Hide duplicate search inputs
+  input[type="search"]:not(:first-of-type),
+  .search-input:not(:first-of-type),
+  .form-control[placeholder*="search"]:not(:first-of-type),
+  .form-control[placeholder*="Search"]:not(:first-of-type),
+  .form-control[placeholder*="filter"]:not(:first-of-type),
+  .form-control[placeholder*="Filter"]:not(:first-of-type) {
+    display: none !important;
+  }
+
+  // Hide any search/filter components that might be duplicated in navbar
+  lpx-navbar .lpx-menu-filter:not(:first-of-type) {
+    display: none !important;
+  }
+
+  // If there are multiple lpx-navbar components, hide search in all but first
+  lpx-navbar:not(:first-of-type) .lpx-menu-filter {
+    display: none !important;
+  }
+}

@@ -1,6 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
-
+/* Global Styles and Custom Variables */
 :root .lpx-theme-dark {
   .abp-support {
     background-image: url('/assets/images/getting-started/abp-support-white.svg');
@@ -16,40 +14,136 @@
   }
 }
 
-
 :root {
   --lpx-theme-light-bg: url('/assets/images/login/login-bg-img-light.svg');
   --lpx-theme-dim-bg: url('/assets/images/login/login-bg-img-dim.svg');
   --lpx-theme-dark-bg: url('/assets/images/login/login-bg-img-dark.svg');
-
   --lpx-logo-url: var(--lpx-logo-icon, url('/assets/images/logo/icon.svg'));
   --lpx-logo: var(--lpx-logo-icon);
 
   .abp-logo {
     background-repeat: no-repeat;
   }
-
   .abp-support {
     width: 178px;
     height: 30px;
     background-image: url('/assets/images/getting-started/abp-support.svg');
   }
-
   .abp-community {
     width: 215px;
     height: 30px;
     background-image: url('/assets/images/getting-started/abp-community.svg');
   }
-
   .abp-blog {
     width: 142px;
     height: 30px;
     background-image: url('/assets/images/getting-started/abp-blog.svg');
   }
-
   .logo-x {
     width: 20px;
     height: 20px;
     background-image: url('/assets/images/getting-started/x.svg');
   }
+}
+
+/* --- CRITICAL: DEDUPLICATE FILTER MENU INPUTS IN SIDEBAR --- */
+/* Enhanced fix for duplicate filter menus in sidebar */
+
+/* Hide all duplicate .lpx-menu-filter elements in sidebar containers */
+::ng-deep .lpx-sidebar-container .lpx-menu-filter:not(:first-of-type),
+::ng-deep .lpx-sidebar .lpx-menu-filter:not(:first-of-type),
+::ng-deep .lpx-nav .lpx-menu-filter:not(:first-of-type),
+::ng-deep .lpx-navbar .lpx-menu-filter:not(:first-of-type) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide consecutive duplicate filters */
+::ng-deep .lpx-menu-filter + .lpx-menu-filter {
+  display: none !important;
+}
+
+/* Target specific search/filter input elements that might be duplicated */
+::ng-deep .lpx-sidebar-container input[type="search"]:not(:first-of-type),
+::ng-deep .lpx-sidebar-container .form-control:not(:first-of-type),
+::ng-deep .lpx-sidebar-container .search-input:not(:first-of-type) {
+  display: none !important;
+}
+
+/* Ensure only one search bar is visible in the entire sidebar */
+::ng-deep .lpx-custom-sidebar-container .lpx-menu-filter {
+  display: none !important;
+}
+::ng-deep .lpx-custom-sidebar-container .lpx-menu-filter:first-of-type {
+  display: block !important;
+}
+
+// Layout-specific content container adjustments
+.lpx-content-container {
+  &.both-sidebars {
+    margin-left: 280px; // Left sidebar width
+    margin-right: 320px; // Right sidebar width
+    
+    @media (max-width: 991px) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  
+  &.left-sidebar-only {
+    margin-left: 280px; // Left sidebar width
+    margin-right: 0;
+    
+    @media (max-width: 991px) {
+      margin-left: 0;
+    }
+  }
+  
+  &.right-sidebar-only {
+    margin-left: 0;
+    margin-right: 320px; // Right sidebar width
+    
+    @media (max-width: 991px) {
+      margin-right: 0;
+    }
+  }
+  
+  &.content-only {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+// Ensure proper spacing and transitions
+.lpx-content-container {
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
+  min-height: 100vh;
+  padding-top: 58px; // Header height
+}
+
+/* Header Theme Support */
+app-custom-header {
+  transition: all 0.3s ease;
+}
+
+/* Theme transition support */
+.lpx-theme-light,
+.lpx-theme-dark,
+.lpx-theme-dim {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure header is always visible and properly themed */
+app-custom-header .card {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+app-custom-header .title-text,
+app-custom-header .nav-btn,
+app-custom-header .action-btn {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }

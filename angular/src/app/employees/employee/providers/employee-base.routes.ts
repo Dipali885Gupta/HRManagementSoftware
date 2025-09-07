@@ -9,4 +9,12 @@ export const EMPLOYEE_BASE_ROUTES: ABP.Route[] = [
     requiredPolicy: 'HRManagementSoftware.Employees',
     breadcrumbText: '::Employees',
   },
+    {
+    path: '/employees',
+    iconClass: 'fas fa-file-alt',
+    name: 'EmployeeDuplicate',
+    layout: eLayoutType.application,
+    requiredPolicy: 'HRManagementSoftware.Employees',
+    breadcrumbText: '::Employees',
+  },
 ];

@@ -1,5 +1,5 @@
 import { ABP, eLayoutType } from '@abp/ng.core';
-
+//display the frontend  name n etc... 
 export const PAYROLL_ADJUSTMENT_BASE_ROUTES: ABP.Route[] = [
   {
     path: '/payroll-adjustments',

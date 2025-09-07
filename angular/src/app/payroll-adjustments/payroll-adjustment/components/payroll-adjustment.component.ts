@@ -68,10 +68,45 @@ import {
     { provide: NgbTimeAdapter, useClass: TimeAdapter },
   ],
   templateUrl: './payroll-adjustment.component.html',
+  styleUrls: ['./payroll-adjustment.component.scss'],
   styles: `
     ::ng-deep.datatable-row-detail {
       background: transparent !important;
     }
   `,
 })
-export class PayrollAdjustmentComponent extends AbstractPayrollAdjustmentComponent {}
+export class PayrollAdjustmentComponent extends AbstractPayrollAdjustmentComponent {
+  // Dummy data for payroll adjustments
+  payrollAdjustments = [
+    {
+      year: 2024,
+      month: 1,
+      netpay: 5000,
+      leavereqid: 'LR001'
+    },
+    {
+      year: 2024,
+      month: 2,
+      netpay: 5200,
+      leavereqid: 'LR002'
+    },
+    {
+      year: 2024,
+      month: 3,
+      netpay: 4800,
+      leavereqid: 'LR003'
+    },
+    {
+      year: 2024,
+      month: 4,
+      netpay: 5500,
+      leavereqid: 'LR004'
+    },
+    {
+      year: 2024,
+      month: 5,
+      netpay: 5100,
+      leavereqid: 'LR005'
+    }
+  ];
+}

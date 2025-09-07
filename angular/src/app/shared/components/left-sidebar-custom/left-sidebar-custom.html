@@ -1,0 +1,76 @@
+<!-- Left Sidebar -->
+<div class="lpx-sidebar-container lpx-custom-sidebar-container" #sidebarcontainer>
+  <div class="lpx-sidebar lpx-sidebar-custom" id="lpx-sidebar">
+    <lpx-navbar></lpx-navbar>
+
+    <div class="lpx-sidebar ps lpx-scroll-container">
+      <!-- Recent queries section removed -->
+    </div>
+
+    <!-- Custom User Menu at Bottom -->
+    <div class="lpx-settings bottom-0 start-0">
+      <div class="lpx-toolbar-user-sidebar hidden-in-hover-trigger" id="lpx-toolbar">
+        <div class="lpx-context-menu" data-lpx-context-menu="user-context-menu">
+          <div class="lpx-context-menu--header">
+            <div class="lpx-user-ctx-header">
+              <div class="lpx-user-ctx-img">
+                <div class="lpx-avatar">
+                  <img class="lpx-avatar-img" src="/assets/img/avatars/user-07.png" alt="avatar" tabindex="-1" />
+                </div>
+              </div>
+              <div class="lpx-user-ctx-info">
+                <span class="lpx-context-menu-user-name">{{
+                  currentUser?.name || 'John Doe'
+                  }}</span>
+                <span class="lpx-context-menu-user-email">{{
+                  currentUser?.email || 'john.doe@mail.com'
+                  }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lpx-user-ctx-body">
+            <ul class="lpx-nav-menu" id="toolbar-body-routes">
+              <li class="outer-menu-item" aria-label="Manage Your Profile">
+                <a class="lpx-menu-item-link lpx-menu-item" tabindex="0" (click)="manageProfile()">
+                  <span class="lpx-menu-item-icon">
+                    <i class="lpx-icon bi-sliders" aria-hidden="true"></i>
+                  </span>
+                  <span class="lpx-menu-item-text hidden-in-hover-trigger">Manage Your Profile</span>
+                </a>
+              </li>
+
+              <li class="outer-menu-item" aria-label="My Security Logs">
+                <a class="lpx-menu-item-link lpx-menu-item" tabindex="0" (click)="viewSecurityLogs()">
+                  <span class="lpx-menu-item-icon">
+                    <i class="lpx-icon bi-list-ul" aria-hidden="true"></i>
+                  </span>
+                  <span class="lpx-menu-item-text hidden-in-hover-trigger">My Security Logs</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="lpx-context-menu--footer">
+            <div class="lpx-user-ctx-footer">
+              <ul class="lpx-nav-menu" id="toolbar-footer-routes">
+                <li class="outer-menu-item" aria-label="Sign Out">
+                  <a class="lpx-menu-item-link lpx-menu-item" tabindex="0" (click)="logout()"
+                    style="cursor: pointer">
+                    <span class="lpx-menu-item-icon">
+                      <i class="lpx-icon bi-box-arrow-right" aria-hidden="true"></i>
+                    </span>
+                    <span class="lpx-menu-item-text hidden-in-hover-trigger">Sign Out</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <lpx-toolbar-container class="custom-avatar"></lpx-toolbar-container>
+
+    </div>
+  </div>
+</div>
