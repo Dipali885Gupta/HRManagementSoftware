@@ -1,7 +1,7 @@
-import { AfterViewInit, APP_INITIALIZER, Component, inject } from '@angular/core';
+import { AfterViewInit, APP_INITIALIZER, Component, inject, OnInit } from '@angular/core';
 import { ConfigStateService, DEFAULT_DYNAMIC_LAYOUTS, ReplaceableComponentsService } from '@abp/ng.core';
 import { Renderer2, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -29,21 +29,47 @@ import { LeftSidebarCustom } from '../../components/left-sidebar-custom/left-sid
   templateUrl: './custom-application-layout.html',
   styleUrls: ['./custom-application-layout.scss']
 })
-export class CustomApplicationLayoutComponent implements AfterViewInit {
+export class CustomApplicationLayoutComponent implements AfterViewInit, OnInit {
   @ViewChild('sidebarcontainer', { read: ElementRef }) sidebarContainer!: ElementRef;
   loggedInTenant: string = 'Platform Admin';
   currentUser: any = null;
+  currentSidebarComponent: any = null;
 
   constructor(
     private renderer: Renderer2,
     private config: ConfigStateService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.currentUser = this.config.getOne('currentUser');
     
     const isBuilding = this.config.getFeatureIsEnabled('AdminFeatures.Building');
     const isDepartment = this.config.getFeatureIsEnabled('AdminFeatures.Department');
     this.loggedInTenant = isBuilding ? 'Site Portal' : (isDepartment ? 'Department Portal' : 'Platform Admin');
+  }
+
+  ngOnInit(): void {
+    this.updateSidebarComponent();
+    // Listen to route changes
+    this.router.events.subscribe(() => {
+      this.updateSidebarComponent();
+    });
+  }
+
+  private updateSidebarComponent(): void {
+    let route = this.activatedRoute;
+    
+    // Traverse to the deepest child route
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    // Get the sidebar component from route data
+    if (route.snapshot.data && route.snapshot.data['sidebarComponent']) {
+      this.currentSidebarComponent = route.snapshot.data['sidebarComponent'];
+    } else {
+      this.currentSidebarComponent = null;
+    }
   }
 
   logout(): void {

@@ -1,0 +1,119 @@
+.hrmanager-sidebar {
+  .section-header {
+    color: var(--lpx-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .quick-actions {
+    h6 {
+      color: var(--lpx-primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .action-buttons {
+      .btn {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        i {
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
+
+  .hr-metrics {
+    h6 {
+      color: var(--lpx-primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .metric-card {
+      background: linear-gradient(135deg, rgba(var(--lpx-primary-rgb), 0.05) 0%, rgba(var(--lpx-primary-rgb), 0.02) 100%);
+      border-color: rgba(var(--lpx-primary-rgb), 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .metric-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--lpx-primary), var(--lpx-secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.7rem;
+      }
+
+      .metric-value {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--lpx-text-color);
+      }
+
+      .metric-change {
+        font-size: 0.7rem;
+        font-weight: 600;
+
+        &.text-success {
+          color: var(--lpx-success) !important;
+        }
+
+        &.text-danger {
+          color: var(--lpx-danger) !important;
+        }
+      }
+    }
+  }
+
+  .recent-activities {
+    h6 {
+      color: var(--lpx-primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .activity-item {
+      background: rgba(var(--lpx-light-rgb), 0.5);
+      border-color: rgba(var(--lpx-border-color-rgb), 0.3);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(var(--lpx-light-rgb), 0.7);
+      }
+
+      .activity-title {
+        color: var(--lpx-text-color);
+      }
+
+      .activity-description {
+        margin-bottom: 0.125rem;
+      }
+
+      .activity-time {
+        font-size: 0.7rem;
+      }
+    }
+  }
+}

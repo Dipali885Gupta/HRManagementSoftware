@@ -42,6 +42,7 @@ import { AuditLoggingConfigModule } from '@volo/abp.ng.audit-logging/config';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DYNAMIC_SIDEBAR_PROVIDER } from './shared/providers/dynamic-sidebar.provider';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(APP_ROUTES),

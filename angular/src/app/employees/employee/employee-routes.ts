@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard, permissionGuard } from '@abp/ng.core';
+import { EmployeesSidebarComponent } from '../../shared/components/employees-sidebar/employees-sidebar.component';
 
 export const EMPLOYEE_ROUTES: Routes = [
   {
@@ -8,5 +9,8 @@ export const EMPLOYEE_ROUTES: Routes = [
       return import('./components/employee.component').then(c => c.EmployeeComponent);
     },
     canActivate: [authGuard, permissionGuard],
+    data: {
+      sidebarComponent: EmployeesSidebarComponent
+    }
   },
 ];

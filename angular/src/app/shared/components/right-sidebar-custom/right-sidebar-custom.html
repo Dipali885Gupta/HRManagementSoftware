@@ -1,88 +1,95 @@
 <!-- Right Sidebar -->
-    <div class="lpx-sidebar-container lpx-toolbar-container right-sidebar">
-      <!-- Top Toolbar Icons (Vertical Layout) -->
+<div class="lpx-sidebar-container lpx-toolbar-container right-sidebar">
+  <!-- Dynamic Sidebar Content -->
+  <div *ngIf="sidebarComponent">
+    <ng-container *ngComponentOutlet="sidebarComponent">
+    </ng-container>
+  </div>
 
-      <!-- HR Policies & Compliance Section -->
-      <div class="p-2 right-sidebar-section">
-        <h5 class="m-0 section-header d-flex align-items-center justify-content-center">
-          <i aria-hidden="true" class="lpx-icon fas fa-file-contract"></i>
-          <span class="hidden-in-hover-trigger ms-1">HR Policies</span>
-        </h5>
-        <div class="mt-2 policy-cards-container hidden-in-hover-trigger">
-          <div class="card border rounded mb-1">
-            <div class="card-header p-2">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="mb-0">Employee Handbook</h6>
-                      <small class="text-muted">Updated 2024</small>
-                    </div>
+  <!-- Default Content (when no dynamic content is set) -->
+  <div *ngIf="!sidebarComponent">
+    <!-- HR Policies & Compliance Section -->
+    <div class="p-2 right-sidebar-section">
+      <h5 class="m-0 section-header d-flex align-items-center justify-content-center">
+        <i aria-hidden="true" class="lpx-icon fas fa-file-contract"></i>
+        <span class="hidden-in-hover-trigger ms-1">HR Policies</span>
+      </h5>
+      <div class="mt-2 policy-cards-container hidden-in-hover-trigger">
+        <div class="card border rounded mb-1">
+          <div class="card-header p-2">
+            <div class="row">
+              <div class="col">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <h6 class="mb-0">Employee Handbook</h6>
+                    <small class="text-muted">Updated 2024</small>
                   </div>
                 </div>
-                <div class="col-auto">
-                  <span class="badge rounded-pill bg-success">Active</span>
-                </div>
+              </div>
+              <div class="col-auto">
+                <span class="badge rounded-pill bg-success">Active</span>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="card border rounded mb-1">
-            <div class="card-header p-2">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="mb-0">Leave Policy</h6>
-                      <small class="text-muted">Updated 2024</small>
-                    </div>
+        <div class="card border rounded mb-1">
+          <div class="card-header p-2">
+            <div class="row">
+              <div class="col">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <h6 class="mb-0">Leave Policy</h6>
+                    <small class="text-muted">Updated 2024</small>
                   </div>
                 </div>
-                <div class="col-auto">
-                  <span class="badge rounded-pill bg-success">Active</span>
-                </div>
+              </div>
+              <div class="col-auto">
+                <span class="badge rounded-pill bg-success">Active</span>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="card border rounded mb-1">
-            <div class="card-header p-2">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="mb-0">Code of Conduct</h6>
-                      <small class="text-muted">Updated 2024</small>
-                    </div>
+        <div class="card border rounded mb-1">
+          <div class="card-header p-2">
+            <div class="row">
+              <div class="col">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <h6 class="mb-0">Code of Conduct</h6>
+                    <small class="text-muted">Updated 2024</small>
                   </div>
                 </div>
-                <div class="col-auto">
-                  <span class="badge rounded-pill bg-success">Active</span>
-                </div>
+              </div>
+              <div class="col-auto">
+                <span class="badge rounded-pill bg-success">Active</span>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="card border rounded mb-1">
-            <div class="card-header p-2">
-              <div class="row">
-                <div class="col">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="mb-0">Anti-Harassment Policy</h6>
-                      <small class="text-muted">Updated 2024</small>
-                    </div>
+        <div class="card border rounded mb-1">
+          <div class="card-header p-2">
+            <div class="row">
+              <div class="col">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <h6 class="mb-0">Anti-Harassment Policy</h6>
+                    <small class="text-muted">Updated 2024</small>
                   </div>
                 </div>
-                <div class="col-auto">
-                  <span class="badge rounded-pill bg-success">Active</span>
-                </div>
+              </div>
+              <div class="col-auto">
+                <span class="badge rounded-pill bg-success">Active</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Settings Section -->
-      <lpx-settings></lpx-settings>
     </div>
+  </div>
+
+  <!-- Settings Section -->
+  <lpx-settings></lpx-settings>
+</div>

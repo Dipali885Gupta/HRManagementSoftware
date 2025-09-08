@@ -5,6 +5,10 @@ import { EMPLOYEE_ROUTES } from './employees/employee/employee-routes';
 import { LEAVE_REQUEST_ROUTES } from './leave-requests/leave-request/leave-request-routes';
 import { HRMANAGER_ROUTES } from './hrmanagers/hrmanager/hrmanager-routes';
 import { PAYROLL_ADJUSTMENT_ROUTES } from './payroll-adjustments/payroll-adjustment/payroll-adjustment-routes';
+import { DashboardSidebarComponent } from './shared/components/dashboard-sidebar/dashboard-sidebar.component';
+import { EmployeesSidebarComponent } from './shared/components/employees-sidebar/employees-sidebar.component';
+import { LeaveRequestsSidebarComponent } from './shared/components/leave-requests-sidebar/leave-requests-sidebar.component';
+import { PayrollSidebarComponent } from './shared/components/payroll-sidebar/payroll-sidebar.component';
 
 export const APP_ROUTES: Routes = [
   {
@@ -17,6 +21,9 @@ export const APP_ROUTES: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./dashboard/dashboard.component').then(c => c.DashboardComponent),
     canActivate: [authGuard, permissionGuard],
+    data: {
+      sidebarComponent: DashboardSidebarComponent
+    }
   },
   {
     path: 'account',

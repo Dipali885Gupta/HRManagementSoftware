@@ -1,0 +1,83 @@
+<!-- HR Manager Sidebar -->
+<div class="hrmanager-sidebar p-2">
+  <!-- Header -->
+  <div class="mb-3">
+    <h5 class="m-0 section-header d-flex align-items-center justify-content-center">
+      <i aria-hidden="true" class="lpx-icon fas fa-user-tie"></i>
+      <span class="ms-1">HR Management</span>
+    </h5>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-bolt me-1"></i>
+      Quick Actions
+    </h6>
+    <div class="action-buttons">
+      <button
+        *ngFor="let action of quickActions"
+        [class]="getActionButtonClass(action.color)"
+        (click)="navigateTo(action.route)"
+        type="button">
+        <i [class]="action.icon + ' me-1'"></i>
+        {{ action.title }}
+      </button>
+    </div>
+  </div>
+
+  <!-- HR Metrics -->
+  <div class="hr-metrics mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-chart-line me-1"></i>
+      HR Metrics
+    </h6>
+    <div class="metrics-grid">
+      <div class="metric-card card border rounded mb-2" *ngFor="let metric of hrMetrics">
+        <div class="card-body p-2">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <div class="metric-icon">
+                <i [class]="metric.icon"></i>
+              </div>
+            </div>
+            <div class="col">
+              <div class="metric-value">{{ metric.value }}</div>
+              <div class="metric-title small text-muted">{{ metric.title }}</div>
+            </div>
+            <div class="col-auto">
+              <div class="metric-change">
+                <i [class]="getChangeIconClass(metric.changeType)"></i>
+                <span class="small ms-1">{{ metric.change }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activities -->
+  <div class="recent-activities hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-clock me-1"></i>
+      Recent Activities
+    </h6>
+    <div class="activities-list">
+      <div class="activity-item card border rounded mb-1" *ngFor="let activity of recentActivities">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col-auto">
+              <i [class]="getActivityIconClass(activity.type)"></i>
+            </div>
+            <div class="col">
+              <div class="activity-title small fw-bold">{{ activity.title }}</div>
+              <div class="activity-description small text-muted">{{ activity.description }}</div>
+              <div class="activity-time small text-muted">{{ activity.time }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<!-- Employees Sidebar -->
+<div class="employees-sidebar p-2">
+  <!-- Header -->
+  <div class="mb-3">
+    <h5 class="m-0 section-header d-flex align-items-center justify-content-center">
+      <i aria-hidden="true" class="lpx-icon fas fa-users"></i>
+      <span class="ms-1">Employee Management</span>
+    </h5>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-bolt me-1"></i>
+      Quick Actions
+    </h6>
+    <div class="action-buttons">
+      <button
+        *ngFor="let action of quickActions"
+        [class]="getActionButtonClass(action.color)"
+        (click)="navigateTo(action.route)"
+        type="button">
+        <i [class]="action.icon + ' me-1'"></i>
+        {{ action.title }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Employee Statistics -->
+  <div class="employee-stats mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-chart-pie me-1"></i>
+      Employee Statistics
+    </h6>
+    <div class="stats-grid">
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2 text-center">
+          <div class="stat-value">{{ employeeStats.total }}</div>
+          <div class="stat-label small text-muted">Total Employees</div>
+        </div>
+      </div>
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2 text-center">
+          <div class="stat-value text-success">{{ employeeStats.active }}</div>
+          <div class="stat-label small text-muted">Active</div>
+        </div>
+      </div>
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2 text-center">
+          <div class="stat-value text-warning">{{ employeeStats.onLeave }}</div>
+          <div class="stat-label small text-muted">On Leave</div>
+        </div>
+      </div>
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2 text-center">
+          <div class="stat-value text-info">{{ employeeStats.newThisMonth }}</div>
+          <div class="stat-label small text-muted">New This Month</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Events -->
+  <div class="upcoming-events hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-calendar-alt me-1"></i>
+      Upcoming Events
+    </h6>
+    <div class="events-list">
+      <div class="event-item card border rounded mb-1" *ngFor="let event of upcomingEvents">
+        <div class="card-body p-2">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <i [class]="getEventIconClass(event.type)"></i>
+            </div>
+            <div class="col">
+              <div class="event-title small fw-bold">{{ event.title }}</div>
+              <div class="event-employee small">{{ event.employee }}</div>
+              <div class="event-date small text-muted">{{ event.date }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

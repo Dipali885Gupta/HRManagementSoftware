@@ -1,0 +1,114 @@
+<!-- Payroll Sidebar -->
+<div class="payroll-sidebar p-2">
+  <!-- Header -->
+  <div class="mb-3">
+    <h5 class="m-0 section-header d-flex align-items-center justify-content-center">
+      <i aria-hidden="true" class="lpx-icon fas fa-money-bill-wave"></i>
+      <span class="ms-1">Payroll Management</span>
+    </h5>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-bolt me-1"></i>
+      Quick Actions
+    </h6>
+    <div class="action-buttons">
+      <button
+        *ngFor="let action of quickActions"
+        [class]="getActionButtonClass(action.color)"
+        (click)="navigateTo(action.route)"
+        type="button">
+        <i [class]="action.icon + ' me-1'"></i>
+        {{ action.title }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Payroll Statistics -->
+  <div class="payroll-stats mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-chart-pie me-1"></i>
+      Payroll Overview
+    </h6>
+    <div class="stats-cards">
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2">
+          <div class="stat-value text-success">{{ payrollStats.totalPayroll }}</div>
+          <div class="stat-label small text-muted">Total Payroll</div>
+        </div>
+      </div>
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2">
+          <div class="stat-value text-primary">{{ payrollStats.employeesPaid }}</div>
+          <div class="stat-label small text-muted">Employees Paid</div>
+        </div>
+      </div>
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2">
+          <div class="stat-value text-warning">{{ payrollStats.pendingAdjustments }}</div>
+          <div class="stat-label small text-muted">Pending Adjustments</div>
+        </div>
+      </div>
+      <div class="stat-card card border rounded mb-2">
+        <div class="card-body p-2">
+          <div class="stat-value text-info">{{ payrollStats.nextPayrollDate }}</div>
+          <div class="stat-label small text-muted">Next Payroll</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Payrolls -->
+  <div class="upcoming-payrolls mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-calendar-alt me-1"></i>
+      Upcoming Payrolls
+    </h6>
+    <div class="payrolls-list">
+      <div class="payroll-item card border rounded mb-1" *ngFor="let payroll of upcomingPayrolls">
+        <div class="card-body p-2">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="payroll-period small fw-bold">{{ payroll.period }}</div>
+              <div class="payroll-amount small text-success">{{ formatCurrency(payroll.amount) }}</div>
+              <div class="payroll-due small text-muted">Due: {{ payroll.dueDate }}</div>
+            </div>
+            <div class="col-auto">
+              <span [class]="getStatusBadgeClass(payroll.status)">
+                {{ payroll.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Payments -->
+  <div class="recent-payments hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-history me-1"></i>
+      Recent Payments
+    </h6>
+    <div class="payments-list">
+      <div class="payment-item card border rounded mb-1" *ngFor="let payment of recentPayments">
+        <div class="card-body p-2">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="payment-period small fw-bold">{{ payment.period }}</div>
+              <div class="payment-amount small text-success">{{ formatCurrency(payment.amount) }}</div>
+              <div class="payment-date small text-muted">{{ payment.processedDate }}</div>
+            </div>
+            <div class="col-auto">
+              <span [class]="getStatusBadgeClass(payment.status)">
+                {{ payment.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

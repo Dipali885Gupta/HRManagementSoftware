@@ -1,0 +1,82 @@
+<!-- Leave Requests Sidebar -->
+<div class="leave-requests-sidebar p-2">
+  <!-- Header -->
+  <div class="mb-3">
+    <h5 class="m-0 section-header d-flex align-items-center justify-content-center">
+      <i aria-hidden="true" class="lpx-icon fas fa-calendar-alt"></i>
+      <span class="ms-1">Leave Management</span>
+    </h5>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-bolt me-1"></i>
+      Quick Actions
+    </h6>
+    <div class="action-buttons">
+      <button
+        *ngFor="let action of quickActions"
+        [class]="getActionButtonClass(action.color)"
+        (click)="navigateTo(action.route)"
+        type="button">
+        <i [class]="action.icon + ' me-1'"></i>
+        {{ action.title }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Leave Statistics -->
+  <div class="leave-stats mb-3 hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-chart-line me-1"></i>
+      Leave Statistics
+    </h6>
+    <div class="stats-list">
+      <div class="stat-item d-flex justify-content-between align-items-center mb-2">
+        <span class="small">Pending Requests</span>
+        <span class="fw-bold text-warning">{{ leaveStats.pendingRequests }}</span>
+      </div>
+      <div class="stat-item d-flex justify-content-between align-items-center mb-2">
+        <span class="small">Approved This Month</span>
+        <span class="fw-bold text-success">{{ leaveStats.approvedThisMonth }}</span>
+      </div>
+      <div class="stat-item d-flex justify-content-between align-items-center mb-2">
+        <span class="small">Total Days Used</span>
+        <span class="fw-bold text-info">{{ leaveStats.totalDaysUsed }}</span>
+      </div>
+      <div class="stat-item d-flex justify-content-between align-items-center mb-2">
+        <span class="small">Avg. Approval Time</span>
+        <span class="fw-bold text-primary">{{ leaveStats.averageApprovalTime }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Leaves -->
+  <div class="upcoming-leaves hidden-in-hover-trigger">
+    <h6 class="mb-2">
+      <i class="fas fa-calendar-check me-1"></i>
+      Upcoming Leaves
+    </h6>
+    <div class="leaves-list">
+      <div class="leave-item card border rounded mb-1" *ngFor="let leave of upcomingLeaves">
+        <div class="card-body p-2">
+          <div class="row">
+            <div class="col">
+              <div class="leave-employee small fw-bold">{{ leave.employee }}</div>
+              <div class="leave-type small" [class]="getLeaveTypeColor(leave.type)">{{ leave.type }}</div>
+              <div class="leave-dates small text-muted">
+                {{ leave.startDate }} - {{ leave.endDate }} ({{ leave.days }} day{{ leave.days > 1 ? 's' : '' }})
+              </div>
+            </div>
+            <div class="col-auto">
+              <span [class]="getStatusBadgeClass(leave.status)">
+                {{ leave.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

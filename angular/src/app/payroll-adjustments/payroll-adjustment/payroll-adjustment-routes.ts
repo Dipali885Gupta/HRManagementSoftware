@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard, permissionGuard } from '@abp/ng.core';
+import { PayrollSidebarComponent } from '../../shared/components/payroll-sidebar/payroll-sidebar.component';
 
 export const PAYROLL_ADJUSTMENT_ROUTES: Routes = [
   {
@@ -10,5 +11,8 @@ export const PAYROLL_ADJUSTMENT_ROUTES: Routes = [
       );
     },
     canActivate: [authGuard, permissionGuard],
+    data: {
+      sidebarComponent: PayrollSidebarComponent
+    }
   },
 ];
