@@ -35,35 +35,25 @@ namespace HRManagementSoftware.HRManagers
         {
             // Using CurrentUser as per reference
             var currentUserId = CurrentUser.Id;
+            if (!currentUserId.HasValue)
+            {
+                throw new AbpAuthorizationException("User not authenticated");
+            }
 
-            // Generate new HR number
+            // Get HR for the current user
             var queryable = await _hRManagerRepository.GetQueryableAsync();
-            var maxHRNumber = await AsyncExecuter.FirstOrDefaultAsync(
-                queryable.OrderByDescending(e => e.HRNumber).Select(e => e.HRNumber)
+            var hrManager = await AsyncExecuter.FirstOrDefaultAsync(
+                queryable.Where(e => e.IdentityUserId == currentUserId.Value)
             );
 
-            string newHRNumber;
-            if (string.IsNullOrEmpty(maxHRNumber))
+            if (hrManager == null)
             {
-                newHRNumber = "001";
-            }
-            else if (int.TryParse(maxHRNumber, out int currentNumber))
-            {
-                newHRNumber = (currentNumber + 1).ToString("D3");
-            }
-            else
-            {
-                newHRNumber = maxHRNumber + "1";
+                // No HR found for the user
+                return new HRManagerDto(); // Return empty DTO
             }
 
-            // Return HRManagerDto with generated number and default data
-            return new HRManagerDto
-            {
-                Id = Guid.NewGuid(), // Temporary ID
-                IdentityUserId = currentUserId,
-                HRNumber = newHRNumber,
-                Department = "New Department"
-            };
+            // Return existing HR details
+            return ObjectMapper.Map<HRManager, HRManagerDto>(hrManager);
         }
     }
 }

@@ -35,40 +35,25 @@ namespace HRManagementSoftware.Employees
         {
             // Using CurrentUser as per reference
             var currentUserId = CurrentUser.Id;
+            if (!currentUserId.HasValue)
+            {
+                throw new AbpAuthorizationException("User not authenticated");
+            }
 
-            // Generate new employee number
+            // Get employee for the current user
             var queryable = await _employeeRepository.GetQueryableAsync();
-            var maxEmployeeNumber = await AsyncExecuter.FirstOrDefaultAsync(
-                queryable.OrderByDescending(e => e.EmployeeNumber).Select(e => e.EmployeeNumber)
+            var employee = await AsyncExecuter.FirstOrDefaultAsync(
+                queryable.Where(e => e.IdentityUserId == currentUserId.Value)
             );
 
-            string newEmployeeNumber;
-            if (string.IsNullOrEmpty(maxEmployeeNumber))
+            if (employee == null)
             {
-                newEmployeeNumber = "001";
-            }
-            else if (int.TryParse(maxEmployeeNumber, out int currentNumber))
-            {
-                newEmployeeNumber = (currentNumber + 1).ToString("D3");
-            }
-            else
-            {
-                newEmployeeNumber = maxEmployeeNumber + "1";
+                // No employee found for the user
+                return new EmployeeDto(); // Return empty DTO
             }
 
-            // Return EmployeeDto with generated number and default data
-            return new EmployeeDto
-            {
-                Id = Guid.NewGuid(), // Temporary ID
-                IdentityUserId = currentUserId,
-                EmployeeNumber = newEmployeeNumber,
-                JobTitle = "New Employee",
-                DateOfJoining = DateTime.Now,
-                PaidLeaveBalance = 0,
-                SickLeaveBalance = 0,
-                UnpaidLeaveBalance = 0,
-                BaseSalary = 0
-            };
+            // Return existing employee details
+            return ObjectMapper.Map<Employee, EmployeeDto>(employee);
         }
     }
 }
