@@ -19,5 +19,12 @@ namespace HRManagementSoftware.Controllers.HRManagers
         public HRManagerController(IHRManagersAppService hRManagersAppService) : base(hRManagersAppService)
         {
         }
+
+        [HttpGet]
+        [Route("by-userid")]
+        public async Task<HRManagerDto> GetNewHRNumberAsync()
+        {
+            return await _hRManagersAppService.GetNewHRNumberAsync();
+        }
     }
 }

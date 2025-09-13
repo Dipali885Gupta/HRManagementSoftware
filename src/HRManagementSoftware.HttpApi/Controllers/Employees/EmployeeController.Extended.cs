@@ -22,5 +22,12 @@ namespace HRManagementSoftware.Controllers.Employees
 
             
         }
+
+        [HttpGet]
+        [Route("by-userid")]
+        public async Task<EmployeeDto> GetNewEmployeeNumberAsync()
+        {
+            return await _employeesAppService.GetNewEmployeeNumberAsync();
+        }
     }
 }
