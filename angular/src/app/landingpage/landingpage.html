@@ -1,0 +1,177 @@
+<div class="landing-root">
+  <header class="nav" data-animate>
+    <div class="logo">
+      <h2>HR Management</h2>
+    </div>
+    <nav class="nav__links">
+      <a>Home</a>
+      <a>Features</a>
+      <a>Pricing</a>
+      <a class="badge-new">New</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="btn btn--ghost" (click)="goToLogin()">Sign in</button>
+      <button class="btn btn--primary" (click)="goToRegister()">Get Started</button>
+    </div>
+    <button class="nav__menu" aria-label="Menu">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg-shapes" aria-hidden="true">
+      <div class="shape shape--1"></div>
+      <div class="shape shape--2"></div>
+      <div class="grid-lines"></div>
+    </div>
+    <div class="hero__inner">
+      <div class="hero__content" data-animate>
+        <div class="eyebrow">Streamline Your HR Operations</div>
+        <h1 class="hero__title">
+          Complete <span class="grad-text">HR Management</span> Solution
+        </h1>
+        <p class="hero__subtitle">
+          Manage employees, leave requests, payroll, and compliance all in one powerful platform.
+          Save time, reduce errors, and focus on what matters most - your people.
+        </p>
+        <div class="hero__ctas" data-animate>
+          <button class="btn btn--primary btn--xl" (click)="goToRegister()">Start Free Trial</button>
+          <button class="btn btn--outline btn--xl" (click)="goToScheduleDemo()">Schedule Demo</button>
+        </div>
+        <div class="hero__trust" data-animate>
+          <div class="metric" data-count="500">0</div>
+          <span>Companies trust our platform</span>
+        </div>
+      </div>
+      <div class="hero__visual" data-animate>
+        <div class="dashboard-preview">
+          <div class="preview-header">
+            <div class="preview-tabs">
+              <span class="tab active">Dashboard</span>
+              <span class="tab">Employees</span>
+              <span class="tab">Payroll</span>
+            </div>
+          </div>
+          <div class="preview-content">
+            <div class="stat-card">
+              <div class="stat-number" data-count="250">0</div>
+              <div class="stat-label">Active Employees</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="45">0</div>
+              <div class="stat-label">Pending Requests</div>
+            </div>
+            <div class="chart-placeholder">
+              <div class="chart-bar" style="height: 60%"></div>
+              <div class="chart-bar" style="height: 80%"></div>
+              <div class="chart-bar" style="height: 40%"></div>
+              <div class="chart-bar" style="height: 90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">Scroll ↓</div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-head" data-animate>
+      <h2>Everything You Need for Modern HR</h2>
+      <p>Comprehensive tools designed for HR professionals and business leaders</p>
+    </div>
+    <div class="features__grid">
+      <div class="feature-card" data-animate>
+        <div class="feature-icon">👥</div>
+        <h3>Employee Management</h3>
+        <p>Complete employee lifecycle management from onboarding to offboarding</p>
+        <ul>
+          <li>Digital employee records</li>
+          <li>Automated onboarding</li>
+          <li>Performance tracking</li>
+        </ul>
+      </div>
+      <div class="feature-card" data-animate>
+        <div class="feature-icon">📅</div>
+        <h3>Leave & Attendance</h3>
+        <p>Streamlined leave request processing and attendance tracking</p>
+        <ul>
+          <li>Multiple leave types</li>
+          <li>Automated approvals</li>
+          <li>Calendar integration</li>
+        </ul>
+      </div>
+      <div class="feature-card" data-animate>
+        <div class="feature-icon">💰</div>
+        <h3>Payroll Processing</h3>
+        <p>Accurate payroll calculation and automated processing</p>
+        <ul>
+          <li>Tax calculations</li>
+          <li>Direct deposits</li>
+          <li>Payroll reports</li>
+        </ul>
+      </div>
+      <div class="feature-card" data-animate>
+        <div class="feature-icon">📊</div>
+        <h3>Analytics & Reporting</h3>
+        <p>Powerful insights to drive better HR decisions</p>
+        <ul>
+          <li>Custom dashboards</li>
+          <li>HR metrics</li>
+          <li>Compliance reports</li>
+        </ul>
+      </div>
+      <div class="feature-card" data-animate>
+        <div class="feature-icon">�</div>
+        <h3>Compliance & Security</h3>
+        <p>Stay compliant with regulations and keep data secure</p>
+        <ul>
+          <li>GDPR compliance</li>
+          <li>Data encryption</li>
+          <li>Audit trails</li>
+        </ul>
+      </div>
+      <div class="feature-card" data-animate>
+        <div class="feature-icon">🤝</div>
+        <h3>Self-Service Portal</h3>
+        <p>Empower employees with self-service capabilities</p>
+        <ul>
+          <li>Leave requests</li>
+          <li>Document access</li>
+          <li>Profile updates</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="proof" id="proof">
+    <div class="metrics">
+      <div class="metric-block" data-animate>
+        <div class="metric" data-count="99.5">0</div>
+        <span>Uptime Guarantee</span>
+      </div>
+      <div class="metric-block" data-animate>
+        <div class="metric" data-count="75">0</div>
+        <span>% Time Saved</span>
+      </div>
+      <div class="metric-block" data-animate>
+        <div class="metric" data-count="500">0</div>
+        <span>Happy Customers</span>
+      </div>
+      <div class="metric-block" data-animate>
+        <div class="metric" data-count="24">0</div>
+        <span>/7 Support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" data-animate>
+    <h2>Ready to Transform Your HR Operations?</h2>
+    <p>Join hundreds of companies already using our platform</p>
+    <div class="cta-buttons">
+      <button class="btn btn--primary btn--xl" (click)="goToRegister()">Start Your Free Trial</button>
+      <button class="btn btn--outline btn--xl" (click)="goToScheduleDemo()">Schedule Demo</button>
+    </div>
+  </section>
+</div>

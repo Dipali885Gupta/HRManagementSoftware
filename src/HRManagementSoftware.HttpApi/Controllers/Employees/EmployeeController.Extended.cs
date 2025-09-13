@@ -13,11 +13,14 @@ namespace HRManagementSoftware.Controllers.Employees
     [Area("app")]
     [ControllerName("Employee")]
     [Route("api/app/employees")]
+    [IgnoreAntiforgeryToken]
 
     public class EmployeeController : EmployeeControllerBase, IEmployeesAppService
     {
         public EmployeeController(IEmployeesAppService employeesAppService) : base(employeesAppService)
         {
+
+            
         }
     }
 }

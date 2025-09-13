@@ -14,8 +14,12 @@ export const APP_ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    loadComponent: () => import('./landingpage/landingpage').then(c => c.Landingpage),
+    data: { layout: 'no-sidebar'}
+  },
+  {
+    path: 'home',
     loadComponent: () => import('./home/home.component').then(c => c.HomeComponent),
-    data: { layout: 'default'}
   },
   {
     path: 'dashboard',
