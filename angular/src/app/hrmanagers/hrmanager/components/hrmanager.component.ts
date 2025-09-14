@@ -29,6 +29,9 @@ import { HRManagerDetailViewService } from '../services/hrmanager-detail.service
 import { HRManagerDetailModalComponent } from './hrmanager-detail.component';
 import { HRManagerService } from '../../../proxy/hrmanagers/hrmanager.service';
 import { HRManagerDto } from '../../../proxy/hrmanagers/models';
+import { LeaveRequestService } from '../../../proxy/leave-requests';
+import { LeaveRequestWithNavigationPropertiesDto } from '../../../proxy/leave-requests/models';
+import { LeaveStatus } from '../../../proxy/leave-status.enum';
 import {
   AbstractHRManagerComponent,
   ChildTabDependencies,
@@ -86,44 +89,19 @@ error: string | null = null;
 // Property to hold HR number
 hrNumber: string = 'N/A';
 
-  // Dummy data for leave requests that need approval
-  leaveRequests = [
-    {
-      empno: 'EMP001',
-      reason: 'Medical leave',
-      startdate: '2024-01-15',
-      enddate: '2024-01-20',
-      leavereqid: 'LR001',
-      reqdate: '2024-01-10',
-      status: 'Pending'
-    },
-    {
-      empno: 'EMP002',
-      reason: 'Vacation',
-      startdate: '2024-02-01',
-      enddate: '2024-02-05',
-      leavereqid: 'LR002',
-      reqdate: '2024-01-28',
-      status: 'Pending'
-    },
-    {
-      empno: 'EMP003',
-      reason: 'Personal matters',
-      startdate: '2024-03-10',
-      enddate: '2024-03-12',
-      leavereqid: 'LR003',
-      reqdate: '2024-03-05',
-      status: 'Pending'
-    }
-  ];
+// Leave requests data
+leaveRequests: LeaveRequestWithNavigationPropertiesDto[] = [];
+isLoadingRequests = false;
+requestsError: string | null = null;
 
-  constructor(private hrManagerService: HRManagerService) {
+  constructor(private hrManagerService: HRManagerService, private leaveRequestService: LeaveRequestService) {
     super();
   }
 
   ngOnInit(): void {
     console.log('HRManagerComponent initialized');
     this.loadHRManagerData();
+    this.loadLeaveRequests();
   }
 
   loadHRManagerData(): void {
@@ -148,24 +126,108 @@ hrNumber: string = 'N/A';
     });
   }
 
-  getStatusClass(status: string): string {
-    switch(status.toLowerCase()) {
-      case 'approved': return 'status-approved';
-      case 'rejected': return 'status-rejected';
-      case 'pending': return 'status-pending';
-      default: return '';
+  loadLeaveRequests(): void {
+    this.isLoadingRequests = true;
+    this.requestsError = null;
+
+    console.log('Fetching leave requests from API...');
+
+    // Get all leave requests (you can add filtering later if needed)
+    this.leaveRequestService.getList({
+      maxResultCount: 1000, // Get all requests, adjust as needed
+      skipCount: 0
+    }).subscribe({
+      next: (response) => {
+        console.log('Leave requests received:', response);
+        this.leaveRequests = response.items || [];
+        this.isLoadingRequests = false;
+      },
+      error: (err) => {
+        console.error('Error fetching leave requests:', err);
+        this.requestsError = 'Failed to load leave requests. Please try again.';
+        this.isLoadingRequests = false;
+      }
+    });
+  }
+
+  getStatusClass(status: number): string {
+    switch(status) {
+      case LeaveStatus.Approved:
+        return 'status-approved';
+      case LeaveStatus.Rejected:
+        return 'status-rejected';
+      case LeaveStatus.Pending:
+        return 'status-pending';
+      case LeaveStatus.Cancelled:
+        return 'status-cancelled';
+      default:
+        return '';
     }
   }
 
-  approveRequest(request: any) {
-    request.status = 'Approved';
-    // Here you would typically call your backend API to update the status
-    console.log('Approved request:', request.leavereqid);
+  approveRequest(request: LeaveRequestWithNavigationPropertiesDto): void {
+    if (!request.leaveRequest?.id) {
+      console.error('Invalid request ID');
+      return;
+    }
+
+    console.log('Approving leave request:', request.leaveRequest.id);
+
+    // Update the leave request status to Approved
+    this.leaveRequestService.update(request.leaveRequest.id, {
+      leaveType: request.leaveRequest.leaveType,
+      leaveStatus: LeaveStatus.Approved,
+      startDate: request.leaveRequest.startDate,
+      endDate: request.leaveRequest.endDate,
+      reason: request.leaveRequest.reason || '', // Required field
+      requestDate: request.leaveRequest.requestDate,
+      employeeId: request.leaveRequest.employeeId,
+      concurrencyStamp: request.leaveRequest.concurrencyStamp
+    }).subscribe({
+      next: (updatedRequest) => {
+        console.log('Leave request approved successfully:', updatedRequest);
+        // Refresh the list to show updated status
+        this.loadLeaveRequests();
+        // You can add a success notification here
+        alert('Leave request approved successfully!');
+      },
+      error: (err) => {
+        console.error('Error approving leave request:', err);
+        alert('Failed to approve leave request. Please try again.');
+      }
+    });
   }
 
-  rejectRequest(request: any) {
-    request.status = 'Rejected';
-    // Here you would typically call your backend API to update the status
-    console.log('Rejected request:', request.leavereqid);
+  rejectRequest(request: LeaveRequestWithNavigationPropertiesDto): void {
+    if (!request.leaveRequest?.id) {
+      console.error('Invalid request ID');
+      return;
+    }
+
+    console.log('Rejecting leave request:', request.leaveRequest.id);
+
+    // Update the leave request status to Rejected
+    this.leaveRequestService.update(request.leaveRequest.id, {
+      leaveType: request.leaveRequest.leaveType,
+      leaveStatus: LeaveStatus.Rejected,
+      startDate: request.leaveRequest.startDate,
+      endDate: request.leaveRequest.endDate,
+      reason: request.leaveRequest.reason || '', // Required field
+      requestDate: request.leaveRequest.requestDate,
+      employeeId: request.leaveRequest.employeeId,
+      concurrencyStamp: request.leaveRequest.concurrencyStamp
+    }).subscribe({
+      next: (updatedRequest) => {
+        console.log('Leave request rejected successfully:', updatedRequest);
+        // Refresh the list to show updated status
+        this.loadLeaveRequests();
+        // You can add a success notification here
+        alert('Leave request rejected successfully!');
+      },
+      error: (err) => {
+        console.error('Error rejecting leave request:', err);
+        alert('Failed to reject leave request. Please try again.');
+      }
+    });
   }
 }

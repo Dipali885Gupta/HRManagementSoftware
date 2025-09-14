@@ -54,6 +54,14 @@
       </div>
       <div class="card-body">
         <form (ngSubmit)="submitCustom()" class="row g-3 align-items-end">
+          <!-- Validation Error Alert -->
+          <div class="col-12" *ngIf="validationError">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="fa fa-exclamation-triangle me-2"></i>
+              {{ validationError }}
+              <button type="button" class="btn-close" (click)="validationError = null" aria-label="Close"></button>
+            </div>
+          </div>
           <div class="col-12 col-md-3">
             <label class="form-label">Employee Number</label>
             <div class="input-group">
@@ -80,12 +88,13 @@
           </div>
 
           <div class="col-12 col-md-3">
-            <label class="form-label">Leave Type</label>
+            <label class="form-label">Leave Type <span class="text-danger">*</span></label>
             <select
               class="form-select form-select-lg"
               [(ngModel)]="customModel.leaveType"
               name="leaveType"
               [ngModelOptions]="{ standalone: true }"
+              required
             >
               <option [ngValue]="null">-- Select Leave Type --</option>
               <option *ngFor="let opt of leaveTypeOptions; trackBy: track.by('value')" [ngValue]="opt.value">
@@ -95,29 +104,33 @@
           </div>
 
           <div class="col-12 col-md-2">
-            <label class="form-label">Start Date</label>
+            <label class="form-label">Start Date <span class="text-danger">*</span></label>
             <input
               type="date"
               class="form-control form-control-lg"
               [(ngModel)]="customModel.startDate"
               name="startDate"
               [ngModelOptions]="{ standalone: true }"
+              [min]="getMinDate()"
+              required
             />
           </div>
 
           <div class="col-12 col-md-2">
-            <label class="form-label">End Date</label>
+            <label class="form-label">End Date <span class="text-danger">*</span></label>
             <input
               type="date"
               class="form-control form-control-lg"
               [(ngModel)]="customModel.endDate"
               name="endDate"
               [ngModelOptions]="{ standalone: true }"
+              [min]="customModel.startDate"
+              required
             />
           </div>
 
           <div class="col-12 col-md-12">
-            <label class="form-label">Reason</label>
+            <label class="form-label">Reason <span class="text-danger">*</span></label>
             <textarea
               class="form-control"
               rows="3"
@@ -125,6 +138,7 @@
               name="reason"
               [ngModelOptions]="{ standalone: true }"
               placeholder="Please provide a detailed reason for your leave request..."
+              required
             ></textarea>
           </div>
 
@@ -141,9 +155,10 @@
             <button
               type="submit"
               class="btn btn-success btn-lg"
-              [disabled]="isSubmitting"
+              [disabled]="isSubmitting || isLoadingEmployee"
             >
-              <i class="fa fa-paper-plane me-1"></i>
+              <i class="fa fa-paper-plane me-1" *ngIf="!isSubmitting"></i>
+              <span class="spinner-border spinner-border-sm me-1" *ngIf="isSubmitting" role="status" aria-hidden="true"></span>
               {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
             </button>
           </div>

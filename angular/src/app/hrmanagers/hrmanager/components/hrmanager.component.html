@@ -80,19 +80,54 @@
 
     <!-- Leave Requests Table Card -->
     <div class="card">
-      <div class="card-header">
+      <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title mb-0">Leave Requests for Approval</h5>
+        <button
+          class="btn btn-sm btn-outline-primary"
+          (click)="loadLeaveRequests()"
+          [disabled]="isLoadingRequests"
+          title="Refresh leave requests"
+        >
+          <i class="fa fa-refresh" [class.fa-spin]="isLoadingRequests"></i>
+          Refresh
+        </button>
       </div>
       <div class="card-body p-0">
-        <div class="table-responsive">
+        <!-- Loading state for requests -->
+        <div *ngIf="isLoadingRequests" class="text-center py-4">
+          <div class="spinner-border text-primary spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2 small">Loading leave requests...</p>
+        </div>
+
+        <!-- Error state for requests -->
+        <div *ngIf="requestsError && !isLoadingRequests" class="alert alert-warning mx-3 my-3" role="alert">
+          <i class="fa fa-exclamation-triangle me-2"></i>
+          {{ requestsError }}
+          <button class="btn btn-sm btn-outline-warning ms-2" (click)="loadLeaveRequests()">
+            <i class="fa fa-refresh me-1"></i>Retry
+          </button>
+        </div>
+
+        <!-- Empty state -->
+        <div *ngIf="!isLoadingRequests && !requestsError && leaveRequests.length === 0" class="text-center py-4">
+          <i class="fa fa-calendar-times fa-3x text-muted mb-3"></i>
+          <h6 class="text-muted">No Leave Requests</h6>
+          <p class="text-muted small">There are no leave requests pending approval at the moment.</p>
+        </div>
+
+        <!-- Requests table -->
+        <div class="table-responsive" *ngIf="!isLoadingRequests && !requestsError && leaveRequests.length > 0">
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th>Employee #</th>
+                <th>Employee Id</th>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
                 <th>Reason</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Request ID</th>
                 <th>Request Date</th>
                 <th>Status</th>
                 <th class="text-end">Actions</th>
@@ -100,21 +135,26 @@
             </thead>
             <tbody>
               <tr *ngFor="let request of leaveRequests">
-                <td>{{ request.empno }}</td>
-                <td>{{ request.reason }}</td>
-                <td>{{ request.startdate | date:'mediumDate' }}</td>
-                <td>{{ request.enddate | date:'mediumDate' }}</td>
-                <td>{{ request.leavereqid }}</td>
-                <td>{{ request.reqdate | date:'mediumDate' }}</td>
+                <td>{{ request.employee?.employeeNumber || 'N/A' }}</td>
+                <td>{{ request.employee?.name || 'N/A' }}</td>
                 <td>
-                  <span class="status-badge" [ngClass]="getStatusClass(request.status)">
-                    {{ request.status }}
+                  <span class="badge bg-secondary">
+                    {{ '::Enum:LeaveType.' + request.leaveRequest?.leaveType | abpLocalization }}
+                  </span>
+                </td>
+                <td>{{ request.leaveRequest?.reason }}</td>
+                <td>{{ request.leaveRequest?.startDate | date:'mediumDate' }}</td>
+                <td>{{ request.leaveRequest?.endDate | date:'mediumDate' }}</td>
+                <td>{{ request.leaveRequest?.requestDate | date:'mediumDate' }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(request.leaveRequest?.leaveStatus)">
+                    {{ '::Enum:LeaveStatus.' + request.leaveRequest?.leaveStatus | abpLocalization }}
                   </span>
                 </td>
                 <td class="text-end">
                   <div class="action-buttons">
                     <button
-                      *ngIf="request.status === 'Pending'"
+                      *ngIf="request.leaveRequest?.leaveStatus === 0"
                       class="btn btn-approve me-2"
                       (click)="approveRequest(request)"
                       title="Approve this leave request"
@@ -123,7 +163,7 @@
                       <span>Approve</span>
                     </button>
                     <button
-                      *ngIf="request.status === 'Pending'"
+                      *ngIf="request.leaveRequest?.leaveStatus === 0"
                       class="btn btn-reject"
                       (click)="rejectRequest(request)"
                       title="Reject this leave request"
@@ -132,12 +172,12 @@
                       <span>Reject</span>
                     </button>
                     <button
-                      *ngIf="request.status !== 'Pending'"
+                      *ngIf="request.leaveRequest?.leaveStatus !== 0"
                       class="btn btn-disabled"
                       disabled
                       title="Request already processed"
                     >
-                      <span>{{ request.status }}</span>
+                      <span>{{ '::Enum:LeaveStatus.' + request.leaveRequest?.leaveStatus | abpLocalization }}</span>
                     </button>
                   </div>
                 </td>
