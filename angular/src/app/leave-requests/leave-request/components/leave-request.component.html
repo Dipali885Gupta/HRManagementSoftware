@@ -56,14 +56,27 @@
         <form (ngSubmit)="submitCustom()" class="row g-3 align-items-end">
           <div class="col-12 col-md-3">
             <label class="form-label">Employee Number</label>
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              [(ngModel)]="customModel.employeeNumber"
-              name="employeeNumber"
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="Enter employee number"
-            />
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                [(ngModel)]="customModel.employeeNumber"
+                name="employeeNumber"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Loading..."
+                readonly
+                [disabled]="isLoadingEmployee"
+              />
+              <span class="input-group-text" *ngIf="isLoadingEmployee">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              </span>
+            </div>
+            <small class="text-muted" *ngIf="!isLoadingEmployee && !employeeError">
+              Auto-populated from your profile
+            </small>
+            <small class="text-danger" *ngIf="employeeError">
+              {{ employeeError }}
+            </small>
           </div>
 
           <div class="col-12 col-md-3">
