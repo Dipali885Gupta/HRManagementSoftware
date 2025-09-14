@@ -29,8 +29,16 @@
   <!--<suite-custom-code-block-5>-->
   <!--<suite-custom-code-block-11>-->
   <div class="employee-dashboard">
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="text-center my-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading employee details...</p>
+    </div>
+
     <!-- Employee Info Card -->
-    <div class="card employee-info mb-4">
+    <div class="card employee-info mb-4" *ngIf="!loading">
       <div class="card-body">
         <div class="d-flex align-items-center">
           <div class="employee-avatar">
@@ -38,7 +46,20 @@
           </div>
           <div class="ms-3">
             <h5 class="mb-1">Employee Number</h5>
-            <h3 class="mb-0">{{ employeeNumber }}</h3>
+            <h3 class="mb-0" *ngIf="employee && employee.employeeNumber; else noEmployee">
+              {{ employee.employeeNumber }}
+            </h3>
+            <ng-template #noEmployee>
+              <h3 class="mb-0 text-muted">No Employee Found</h3>
+            </ng-template>
+            <div *ngIf="employee" class="mt-2">
+              <p class="mb-1"><strong>Job Title:</strong> {{ employee.jobTitle || 'N/A' }}</p>
+              <p class="mb-1"><strong>Date of Joining:</strong> {{ employee.dateOfJoining | date:'mediumDate' }}</p>
+              <p class="mb-1"><strong>Base Salary:</strong> {{ employee.baseSalary | currency }}</p>
+              <p class="mb-1"><strong>Paid Leave Balance:</strong> {{ employee.paidLeaveBalance }}</p>
+              <p class="mb-1"><strong>Sick Leave Balance:</strong> {{ employee.sickLeaveBalance }}</p>
+              <p class="mb-1"><strong>Unpaid Leave Balance:</strong> {{ employee.unpaidLeaveBalance }}</p>
+            </div>
           </div>
         </div>
       </div>

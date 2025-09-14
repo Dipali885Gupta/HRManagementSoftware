@@ -1,7 +1,10 @@
 import type { FullAuditedEntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { IdentityUserDto } from '../volo/abp/identity/models';
 
-export interface EmployeeCreateDto {
+export interface EmployeeCreateDto extends EmployeeCreateDtoBase {
+}
+
+export interface EmployeeCreateDtoBase {
   employeeNumber: string;
   jobTitle: string;
   dateOfJoining?: string;
@@ -12,9 +15,12 @@ export interface EmployeeCreateDto {
   identityUserId?: string;
 }
 
-export interface EmployeeDto extends FullAuditedEntityDto<string> {
-  employeeNumber: string;
-  jobTitle: string;
+export interface EmployeeDto extends EmployeeDtoBase {
+}
+
+export interface EmployeeDtoBase extends FullAuditedEntityDto<string> {
+  employeeNumber?: string;
+  jobTitle?: string;
   dateOfJoining?: string;
   paidLeaveBalance: number;
   sickLeaveBalance: number;
@@ -24,7 +30,10 @@ export interface EmployeeDto extends FullAuditedEntityDto<string> {
   concurrencyStamp?: string;
 }
 
-export interface EmployeeExcelDownloadDto {
+export interface EmployeeExcelDownloadDto extends EmployeeExcelDownloadDtoBase {
+}
+
+export interface EmployeeExcelDownloadDtoBase {
   downloadToken?: string;
   filterText?: string;
   employeeNumber?: string;
@@ -42,7 +51,10 @@ export interface EmployeeExcelDownloadDto {
   identityUserId?: string;
 }
 
-export interface EmployeeUpdateDto {
+export interface EmployeeUpdateDto extends EmployeeUpdateDtoBase {
+}
+
+export interface EmployeeUpdateDtoBase {
   employeeNumber: string;
   jobTitle: string;
   dateOfJoining?: string;
@@ -54,12 +66,18 @@ export interface EmployeeUpdateDto {
   concurrencyStamp?: string;
 }
 
-export interface EmployeeWithNavigationPropertiesDto {
+export interface EmployeeWithNavigationPropertiesDto extends EmployeeWithNavigationPropertiesDtoBase {
+}
+
+export interface EmployeeWithNavigationPropertiesDtoBase {
   employee: EmployeeDto;
   identityUser: IdentityUserDto;
 }
 
-export interface GetEmployeesInput extends PagedAndSortedResultRequestDto {
+export interface GetEmployeesInput extends GetEmployeesInputBase {
+}
+
+export interface GetEmployeesInputBase extends PagedAndSortedResultRequestDto {
   filterText?: string;
   employeeNumber?: string;
   jobTitle?: string;

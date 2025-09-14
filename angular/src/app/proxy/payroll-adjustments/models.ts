@@ -3,7 +3,10 @@ import type { PayrollRecordStatus } from '../payroll-record-status.enum';
 import type { LeaveRequestDto } from '../leave-requests/models';
 import type { EmployeeDto } from '../employees/models';
 
-export interface GetPayrollAdjustmentsInput extends PagedAndSortedResultRequestDto {
+export interface GetPayrollAdjustmentsInput extends GetPayrollAdjustmentsInputBase {
+}
+
+export interface GetPayrollAdjustmentsInputBase extends PagedAndSortedResultRequestDto {
   filterText?: string;
   monthMin?: number;
   monthMax?: number;
@@ -16,26 +19,35 @@ export interface GetPayrollAdjustmentsInput extends PagedAndSortedResultRequestD
   employeeId?: string;
 }
 
-export interface PayrollAdjustmentCreateDto {
+export interface PayrollAdjustmentCreateDto extends PayrollAdjustmentCreateDtoBase {
+}
+
+export interface PayrollAdjustmentCreateDtoBase {
   month: number;
   year: number;
-  status: PayrollRecordStatus;
+  status?: PayrollRecordStatus;
   netpay: number;
   leaveRequestId?: string;
   employeeId?: string;
 }
 
-export interface PayrollAdjustmentDto extends FullAuditedEntityDto<string> {
+export interface PayrollAdjustmentDto extends PayrollAdjustmentDtoBase {
+}
+
+export interface PayrollAdjustmentDtoBase extends FullAuditedEntityDto<string> {
   month: number;
   year: number;
-  status: PayrollRecordStatus;
+  status?: PayrollRecordStatus;
   netpay: number;
   leaveRequestId?: string;
   employeeId?: string;
   concurrencyStamp?: string;
 }
 
-export interface PayrollAdjustmentExcelDownloadDto {
+export interface PayrollAdjustmentExcelDownloadDto extends PayrollAdjustmentExcelDownloadDtoBase {
+}
+
+export interface PayrollAdjustmentExcelDownloadDtoBase {
   downloadToken?: string;
   filterText?: string;
   monthMin?: number;
@@ -49,17 +61,23 @@ export interface PayrollAdjustmentExcelDownloadDto {
   employeeId?: string;
 }
 
-export interface PayrollAdjustmentUpdateDto {
+export interface PayrollAdjustmentUpdateDto extends PayrollAdjustmentUpdateDtoBase {
+}
+
+export interface PayrollAdjustmentUpdateDtoBase {
   month: number;
   year: number;
-  status: PayrollRecordStatus;
+  status?: PayrollRecordStatus;
   netpay: number;
   leaveRequestId?: string;
   employeeId?: string;
   concurrencyStamp?: string;
 }
 
-export interface PayrollAdjustmentWithNavigationPropertiesDto {
+export interface PayrollAdjustmentWithNavigationPropertiesDto extends PayrollAdjustmentWithNavigationPropertiesDtoBase {
+}
+
+export interface PayrollAdjustmentWithNavigationPropertiesDtoBase {
   payrollAdjustment: PayrollAdjustmentDto;
   leaveRequest: LeaveRequestDto;
   employee: EmployeeDto;

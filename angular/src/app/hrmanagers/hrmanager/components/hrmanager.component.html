@@ -6,6 +6,16 @@
       <!--<suite-custom-code-block-1>-->
       <!--</suite-custom-code-block-1>-->
       <button
+        class="btn btn-outline-primary btn-sm mx-2"
+        type="button"
+        [disabled]="isLoading"
+        (click)="loadHRManagerData()"
+        title="Refresh HR Manager data"
+      >
+        <i class="fa fa-refresh me-1" [class.fa-spin]="isLoading"></i>
+        {{ '::Refresh' | abpLocalization }}
+      </button>
+      <button
         class="btn btn-primary btn-sm mx-2"
         type="button"
         [disabled]="service.isExportToExcelBusy"
@@ -30,8 +40,25 @@
   <!--<suite-custom-code-block-5>-->
   <!--<suite-custom-code-block-11>-->
   <div class="hr-dashboard">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading HR Manager details...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !isLoading" class="alert alert-danger" role="alert">
+      <i class="fa fa-exclamation-triangle me-2"></i>
+      {{ error }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadHRManagerData()">
+        <i class="fa fa-refresh me-1"></i>Retry
+      </button>
+    </div>
+
     <!-- HR Info Card -->
-    <div class="card hr-info mb-4">
+    <div *ngIf="!isLoading && !error" class="card hr-info mb-4">
       <div class="card-body">
         <div class="d-flex align-items-center">
           <div class="hr-avatar">
@@ -40,6 +67,12 @@
           <div class="ms-3">
             <h5 class="mb-1">HR Number</h5>
             <h3 class="mb-0">{{ hrNumber }}</h3>
+            <div *ngIf="hrManager">
+              <small class="text-muted">
+                Department: {{ hrManager.department || 'N/A' }}<br>
+                Status: Active
+              </small>
+            </div>
           </div>
         </div>
       </div>

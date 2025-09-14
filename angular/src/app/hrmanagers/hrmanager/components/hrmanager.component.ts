@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -27,6 +27,8 @@ import {
 import { HRManagerViewService } from '../services/hrmanager.service';
 import { HRManagerDetailViewService } from '../services/hrmanager-detail.service';
 import { HRManagerDetailModalComponent } from './hrmanager-detail.component';
+import { HRManagerService } from '../../../proxy/hrmanagers/hrmanager.service';
+import { HRManagerDto } from '../../../proxy/hrmanagers/models';
 import {
   AbstractHRManagerComponent,
   ChildTabDependencies,
@@ -75,9 +77,14 @@ import {
     }
   `,
 })
-export class HRManagerComponent extends AbstractHRManagerComponent {
-  // Hardcoded HR Number as requested
-  hrNumber = 'HR001';
+export class HRManagerComponent extends AbstractHRManagerComponent implements OnInit {
+// API data properties
+hrManager: HRManagerDto | null = null;
+isLoading = false;
+error: string | null = null;
+
+// Property to hold HR number
+hrNumber: string = 'N/A';
 
   // Dummy data for leave requests that need approval
   leaveRequests = [
@@ -109,6 +116,37 @@ export class HRManagerComponent extends AbstractHRManagerComponent {
       status: 'Pending'
     }
   ];
+
+  constructor(private hrManagerService: HRManagerService) {
+    super();
+  }
+
+  ngOnInit(): void {
+    console.log('HRManagerComponent initialized');
+    this.loadHRManagerData();
+  }
+
+  loadHRManagerData(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    console.log('Fetching HR Manager data from API...');
+
+    this.hrManagerService.getNewHRNumber().subscribe({
+      next: (data: HRManagerDto) => {
+        console.log('HR Manager data received:', data);
+        this.hrManager = data;
+        // Update hrNumber from API data
+        this.hrNumber = data.hrNumber || data.id || 'N/A';
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching HR Manager data:', err);
+        this.error = 'Failed to load HR Manager data. Please try again.';
+        this.isLoading = false;
+      }
+    });
+  }
 
   getStatusClass(status: string): string {
     switch(status.toLowerCase()) {
