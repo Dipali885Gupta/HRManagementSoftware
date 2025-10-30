@@ -1,4 +1,34 @@
 /* Global Styles and Custom Variables */
+
+/* ngx-guided-tour z-index and visibility fixes */
+ngx-guided-tour {
+  display: block !important;
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+.guided-tour-spotlight-overlay {
+  z-index: 9999 !important;
+}
+
+.tour-orb {
+  z-index: 10001 !important;
+}
+
+.tour-step {
+  z-index: 10002 !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.page-tour-step {
+  z-index: 10002 !important;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 :root .lpx-theme-dark {
   .abp-support {
     background-image: url('/assets/images/getting-started/abp-support-white.svg');

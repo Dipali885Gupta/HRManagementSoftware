@@ -4,7 +4,6 @@ import { filter } from 'rxjs';
 import { ReplaceableComponentsService, SessionStateService } from '@abp/ng.core';
 import { eThemeLeptonXComponents } from '@volosoft/abp.ng.theme.lepton-x';
 import { SideMenuApplicationLayoutComponent } from '@volosoft/abp.ng.theme.lepton-x/layouts';
-import { GuidedTourModule } from 'ngx-guided-tour';
 import { HrTourService } from './services/hr-tour.service';
 import { CustomApplicationLayoutComponent } from './shared/layouts/custom-application-layout/custom-application-layout';
 import { ThemeService } from '@volosoft/ngx-lepton-x';
@@ -12,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { LoaderBarComponent } from '@abp/ng.theme.shared';
 import { GdprCookieConsentComponent } from '@volo/abp.ng.gdpr/config';
 import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
+import { GuidedTourModule } from 'ngx-guided-tour';
 
 @Component({
   selector: 'app-root',
@@ -48,6 +48,7 @@ import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
       </ng-container>
       <abp-gdpr-cookie-consent></abp-gdpr-cookie-consent>
       <button *ngIf="isLandingPage" class="guided-tour-starter-btn" (click)="startOnboarding()">Take a Tour</button>
+      <ngx-guided-tour></ngx-guided-tour>
     </ng-container>
   `,
 })

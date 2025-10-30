@@ -240,17 +240,13 @@ export class HrTourService {
     
     const tour: GuidedTour = {
       tourId: 'hr-onboarding-tour',
-      useOrb: true,
-      preventBackdropFromAdvancing: false,  // Allow backdrop clicks
+      useOrb: false,  // Disable orb for now
+      preventBackdropFromAdvancing: true,  // Force using buttons
       steps: [
         {
-          title: 'Welcome to HR Management',
-          selector: this.selectors.signInBtn,
-          content: 'First, click here to sign in to your account.',
-          orientation: 'bottom',
-          closeAction: () => {
-            console.log('🎯 [Tour Flow] Welcome step closed');
-          }
+          title: 'Welcome to HR Management System!',
+          content: 'This is a guided tour to help you navigate the HR Management System. Click "Next" to continue or "Skip" to exit the tour.',
+          // NO selector = centered modal that should always show
         },
         {
           title: 'Login - Username',
@@ -341,8 +337,23 @@ export class HrTourService {
       setTimeout(() => this.guidedTourService.nextStep(), 300);
     });
 
+    // Debug: Check if ngx-guided-tour component exists in DOM
+    const tourComponent = document.querySelector('ngx-guided-tour');
+    console.log('🎯 [Debug] ngx-guided-tour element in DOM:', !!tourComponent);
+    console.log('🎯 [Debug] ngx-guided-tour innerHTML:', tourComponent?.innerHTML);
+    
     // Start the tour
+    console.log('🎯 [Tour Flow] 8. Calling guidedTourService.startTour()');
     this.guidedTourService.startTour(tour);
+    
+    // Debug: Check tour state after starting
+    setTimeout(() => {
+      console.log('🎯 [Debug] Tour component after start:', tourComponent?.innerHTML);
+      const tourStepElement = document.querySelector('.tour-step, .page-tour-step');
+      console.log('🎯 [Debug] Tour step element found:', !!tourStepElement);
+      const overlay = document.querySelector('.guided-tour-spotlight-overlay');
+      console.log('🎯 [Debug] Overlay element found:', !!overlay);
+    }, 100);
   }
 
   stopTour() {
