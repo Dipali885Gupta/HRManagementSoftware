@@ -25,5 +25,13 @@ function configureRoutes() {
         layout: eLayoutType.application,
         requiredPolicy: 'HRManagementSoftware.Dashboard.Host  || HRManagementSoftware.Dashboard.Tenant',
       },
+      {
+        path: '/hrmanagers',
+        name: '::Menu:HRManagers',
+        iconClass: 'fas fa-user-tie',
+        order: 50,
+        layout: eLayoutType.application,
+        requiredPolicy: 'HRManagementSoftware.HRManagers',
+      },
   ]);
 }
