@@ -10,7 +10,8 @@
       <a class="badge-new">New</a>
     </nav>
     <div class="nav__actions">
-      <button class="btn btn--ghost" (click)="goToLogin()">Sign in</button>
+      <button id="sign-in-btn" class="btn btn--ghost" (click)="goToLogin()">Sign in</button>
+      <button class="btn btn--outline" (click)="onTakeTourClick()">Take a Tour</button>
       <button class="btn btn--primary" (click)="goToRegister()">Get Started</button>
     </div>
     <button class="nav__menu" aria-label="Menu">☰</button>

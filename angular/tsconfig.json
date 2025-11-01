@@ -21,8 +21,11 @@
       "@swimlane/*": ["node_modules/@swimlane/*"],
       "@ngx-validate/core":["node_modules/@ngx-validate/core"],
       "@ng-bootstrap/ng-bootstrap": ["node_modules/@ng-bootstrap/ng-bootstrap"],
+      "shepherd.js": ["src/types.d.ts"],
+      "shepherd.js/dist/cjs/shepherd.d.cts": ["src/types.d.ts"]
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
