@@ -138,12 +138,29 @@ export class HrTourService {
         if (step.selector === this.selectors.signInBtn) {
           const signInBtn = document.querySelector(this.selectors.signInBtn) as HTMLElement;
           if (signInBtn) {
+            // When user clicks the real sign-in button we want the app to navigate to the login page.
+            // Stop/skip the current onboarding tour so the route change + DOM observer can start the login tour.
             signInBtn.addEventListener('click', () => {
-              console.log('🎯 [Tour Flow] 8. Sign-in button clicked');
-              // Let the navigation happen
-              setTimeout(() => this.guidedTourService.nextStep(), 500);
+              this.log('🎯 [Tour Flow] 8. Sign-in button clicked (pausing onboarding tour)');
+              // Allow the navigation to proceed, then stop the current tour so the login tour can take over
+              setTimeout(() => {
+                try { this.guidedTourService.skipTour(); } catch (e) { /* ignore */ }
+              }, 200);
             }, { once: true });
           }
+
+          // Also handle the case where the user clicks the tour's "Next" button (not the real sign-in button).
+          // In that case we should navigate to the login page and pause/skip the onboarding tour so the
+          // login-specific tour can take over when the login form is present.
+          this.attachTourNextOnce(() => {
+            this.log('🎯 [Tour Flow] 8b. Tour Next clicked on Sign-in step (navigating to login)');
+            // Navigate to login page and skip the current tour shortly after to allow navigation to start
+            this.router.navigate(['/account/login']).then(() => {
+              setTimeout(() => {
+                try { this.guidedTourService.skipTour(); } catch (e) { /* ignore */ }
+              }, 200);
+            });
+          });
         }
       }
     });
@@ -185,6 +202,51 @@ export class HrTourService {
         });
       }
     });
+  }
+
+  /**
+   * Polls the DOM for the guided-tour "Next" button and attaches a one-time click handler.
+   * The function pushes a remover into attachedListeners so it will be cleared when the tour stops.
+   */
+  private attachTourNextOnce(handler: () => void) {
+    // Poll for the tour component's next button. Support a few common selectors used by ngx-guided-tour
+    const selectors = [
+      'ngx-guided-tour button[aria-label="Next"]',
+      'ngx-guided-tour button:contains("Next")',
+      '.guided-tour .guided-tour__controls button.next',
+      '.guided-tour button.next',
+      '.guided-tour-spotlight button.next',
+      'ngx-guided-tour button' // fallback - we'll filter by text
+    ];
+
+    const interval = setInterval(() => {
+      const tourRoot = document.querySelector('ngx-guided-tour') || document.querySelector('.guided-tour');
+      if (!tourRoot) return;
+
+      // try to find a button that looks like the Next button
+      const buttons = Array.from(tourRoot.querySelectorAll('button')) as HTMLButtonElement[];
+      const nextBtn = buttons.find(b => {
+        const txt = (b.textContent || '').trim().toLowerCase();
+        return txt === 'next' || txt === '›' || b.getAttribute('aria-label')?.toLowerCase() === 'next' || b.className.toLowerCase().includes('next');
+      });
+
+      if (nextBtn) {
+        const wrapped = (ev: Event) => {
+          try {
+            handler();
+          } finally {
+            try { nextBtn.removeEventListener('click', wrapped); } catch (e) { }
+          }
+        };
+        nextBtn.addEventListener('click', wrapped, { once: true });
+        // store remover for cleanup
+        this.attachedListeners.push(() => { try { nextBtn.removeEventListener('click', wrapped); } catch (e) {} });
+        clearInterval(interval);
+      }
+    }, 150);
+
+    // store interval clearer in case tour is stopped before we find the button
+    this.attachedListeners.push(() => clearInterval(interval));
   }
 
   private continueWithLoginForm() {
@@ -249,21 +311,9 @@ export class HrTourService {
           // NO selector = centered modal that should always show
         },
         {
-          title: 'Login - Username',
-          selector: this.selectors.loginUsername,
-          content: 'Enter your username here.',
-          orientation: 'left',
-        },
-        {
-          title: 'Login - Password',
-          selector: this.selectors.loginPassword,
-          content: 'Enter your password here.',
-          orientation: 'left',
-        },
-        {
-          title: 'Login - Submit',
-          selector: this.selectors.loginSubmit,
-          content: 'Click here to sign in.',
+          title: 'Sign in',
+          selector: this.selectors.signInBtn,
+          content: 'Click here to sign in to your account.',
           orientation: 'bottom',
         },
         {
@@ -305,13 +355,19 @@ export class HrTourService {
       ],
     };
 
-    // Set up a mutation observer to watch for login form appearance
-    const observer = new MutationObserver((mutations, obs) => {
+    // Set up a mutation observer to watch for login form appearance.
+    // Use explicit parameter names/types and call the existing continueWithLoginForm()
+    const observer = new MutationObserver((mutations: MutationRecord[], observer: MutationObserver) => {
       const loginForm = document.querySelector(this.selectors.loginUsername);
       if (loginForm) {
-        console.log('🎯 [Tour Flow] 9. Login form detected');
-        obs.disconnect();
-        this.startLoginTour();
+        this.log('🎯 [Tour Flow] 9. Login form detected');
+        try {
+          observer.disconnect();
+        } catch (e) {
+          // ignore disconnect errors
+        }
+        // Resume the tour flow on the login form
+        this.continueWithLoginForm();
       }
     });
 
@@ -362,65 +418,5 @@ export class HrTourService {
     } finally {
       this.clearListeners();
     }
-  }
-
-  private startLoginTour() {
-    console.log('🎯 [Tour Flow] 10. Starting login form tour');
-    
-    const loginTour: GuidedTour = {
-      tourId: 'hr-login-tour',
-      useOrb: true,
-      preventBackdropFromAdvancing: false,
-      steps: [
-        {
-          title: 'Username',
-          selector: this.selectors.loginUsername,
-          content: 'Enter your username here',
-          orientation: 'bottom'
-        },
-        {
-          title: 'Password',
-          selector: this.selectors.loginPassword,
-          content: 'Enter your password here',
-          orientation: 'bottom'
-        },
-        {
-          title: 'Submit',
-          selector: this.selectors.loginSubmit,
-          content: 'Click here to log in',
-          orientation: 'bottom'
-        }
-      ]
-    };
-
-    // Add event listener for the submit button
-    const submitBtn = document.querySelector(this.selectors.loginSubmit);
-    if (submitBtn) {
-      submitBtn.addEventListener('click', () => {
-        console.log('🎯 [Tour Flow] 11. Login form submitted');
-        setTimeout(() => {
-          this.handleLoginSuccess();
-        }, 1000);
-      }, { once: true });
-    }
-
-    console.log('🎯 [Tour Flow] Starting login form tour steps');
-    this.guidedTourService.startTour(loginTour);
-  }
-
-  private handleLoginSuccess() {
-    console.log('🎯 [Tour Flow] 12. Handling login success');
-    this.guidedTourService.startTour({
-      tourId: 'hr-welcome-tour',
-      useOrb: true,
-      preventBackdropFromAdvancing: false,
-      steps: [
-        {
-          title: 'Welcome',
-          content: 'Welcome to HR Management! Your tour is complete.',
-          orientation: 'center'
-        }
-      ]
-    });
   }
 }
