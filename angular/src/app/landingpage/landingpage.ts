@@ -2,6 +2,7 @@ import { Component, inject, OnInit, AfterViewInit, ViewEncapsulation } from '@an
 import { Router } from '@angular/router';
 import { AuthService } from '@abp/ng.core';
 import { CommonModule } from '@angular/common';
+import { ShepherdTourService } from '../services/shepherd-tour.service';
 
 @Component({
   selector: 'app-landingpage',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class Landingpage implements OnInit, AfterViewInit {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private shepherdTour = inject(ShepherdTourService);
 
   ngOnInit() {
     // Check if user is already authenticated
@@ -47,6 +49,10 @@ export class Landingpage implements OnInit, AfterViewInit {
 
   goToLogin() {
     this.authService.navigateToLogin();
+  }
+
+  onTakeTourClick() {
+    this.shepherdTour.startLandingTour();
   }
 
   goToRegister() {
