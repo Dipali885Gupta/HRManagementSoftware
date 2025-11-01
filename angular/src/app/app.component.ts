@@ -4,7 +4,6 @@ import { filter } from 'rxjs';
 import { ReplaceableComponentsService, SessionStateService } from '@abp/ng.core';
 import { eThemeLeptonXComponents } from '@volosoft/abp.ng.theme.lepton-x';
 import { SideMenuApplicationLayoutComponent } from '@volosoft/abp.ng.theme.lepton-x/layouts';
-import { HrTourService } from './services/hr-tour.service';
 import { CustomApplicationLayoutComponent } from './shared/layouts/custom-application-layout/custom-application-layout';
 import { ThemeService } from '@volosoft/ngx-lepton-x';
 import { CommonModule } from '@angular/common';
@@ -12,6 +11,7 @@ import { LoaderBarComponent } from '@abp/ng.theme.shared';
 import { GdprCookieConsentComponent } from '@volo/abp.ng.gdpr/config';
 import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
 import { GuidedTourModule } from 'ngx-guided-tour';
+import { TourResumeService } from './services/tour-resume.service';
 
 @Component({
   selector: 'app-root',
@@ -22,24 +22,6 @@ import { GuidedTourModule } from 'ngx-guided-tour';
     GdprCookieConsentComponent,
     GuidedTourModule
   ],
-  styles: [`
-    .guided-tour-starter-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    .guided-tour-starter-btn:hover {
-      background: #0056b3;
-    }
-  `],
   template: `
     <ng-container>
       <abp-loader-bar></abp-loader-bar>
@@ -47,7 +29,6 @@ import { GuidedTourModule } from 'ngx-guided-tour';
         <ng-container [ngComponentOutlet]="currentLayoutComponent"></ng-container>
       </ng-container>
       <abp-gdpr-cookie-consent></abp-gdpr-cookie-consent>
-      <button *ngIf="isLandingPage" class="guided-tour-starter-btn" (click)="startOnboarding()">Take a Tour</button>
       <ngx-guided-tour></ngx-guided-tour>
     </ng-container>
   `,
@@ -55,14 +36,13 @@ import { GuidedTourModule } from 'ngx-guided-tour';
 export class AppComponent implements OnInit {
   tenantName: string;
   currentLayoutComponent: any;
-  isLandingPage = false;
 
   constructor(
     private router: Router,
     public replaceableComponents: ReplaceableComponentsService,
     private sessionStateService: SessionStateService,
     private themeService: ThemeService,
-    private hrTourService: HrTourService
+    private tourResumeService: TourResumeService
   ) {
     this.tenantName = this.sessionStateService.getTenant()?.name ?? 'host';
 
@@ -101,12 +81,6 @@ export class AppComponent implements OnInit {
 
     this.currentLayoutComponent = layoutComponent;
 
-    // Set isLandingPage: landing route uses '' with layout 'no-sidebar'.
-    // Consider landing page when current URL is root ('/') or when route layout is 'no-sidebar'.
-    const normalizedUrl = currentUrl.split('?')[0].split('#')[0];
-    this.isLandingPage = normalizedUrl === '/' || layoutType === 'no-sidebar';
-
-
     this.replaceableComponents.add({
       component: layoutComponent,
       key: eThemeLeptonXComponents.ApplicationLayout,
@@ -139,7 +113,7 @@ export class AppComponent implements OnInit {
       } catch {}
     }
 
-    this.hrTourService.startTour();
+    // Tour is now triggered from the landing page "Take a Tour" button
   }
 
   private applyCustomStyling() {
