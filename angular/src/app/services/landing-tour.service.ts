@@ -8,12 +8,18 @@ export class LandingTourService {
   private router = inject(Router);
 
   startLandingPageTour() {
+    console.log('🎯 [Tour] Starting landing page tour');
+    
     const tour: GuidedTour = {
       tourId: 'landing-page-tour',
       useOrb: false,
       completeCallback: () => {
-        // When tour completes (user clicks Next on last step), navigate to login
-        this.navigateToLogin();
+        console.log('🎯 [Tour] Landing page tour completed - navigating to login');
+        // Navigate to login page when tour completes
+        this.router.navigate(['/account/login']);
+      },
+      skipCallback: () => {
+        console.log('🎯 [Tour] Tour skipped by user');
       },
       steps: [
         {
@@ -25,50 +31,18 @@ export class LandingTourService {
         {
           title: 'Sign In',
           selector: '#sign-in-btn',
-          content: 'Click the Sign in button to open the login page and continue the tour.',
+          content: 'Click the Sign in button to open the login page.',
           orientation: Orientation.Bottom
-        }
-      ]
-    };
-
-    this.guidedTourService.startTour(tour);
-  }
-
-  private navigateToLogin() {
-    // Store flag to resume tour on login page
-    localStorage.setItem('hr_tour_resume', 'login-page');
-    
-    // Navigate to login
-    this.router.navigate(['/account/login']).then(() => {
-      // Wait for login page to load and start the login page tour
-      setTimeout(() => {
-        this.startLoginPageTour();
-      }, 1000);
-    });
-  }
-
-  startLoginPageTour() {
-    const resumeFlag = localStorage.getItem('hr_tour_resume');
-    if (resumeFlag !== 'login-page') {
-      return;
-    }
-
-    // Clear the flag
-    localStorage.removeItem('hr_tour_resume');
-
-    const tour: GuidedTour = {
-      tourId: 'login-page-tour',
-      useOrb: false,
-      steps: [
+        },
         {
-          title: 'Username Field',
-          selector: '#LoginInput_UserNameOrEmailAddress',
-          content: 'Enter your username or email address here to sign in.',
-          orientation: Orientation.Right
+          title: 'Ready to Sign In',
+          content: 'Click Done to go to the login page and sign in.',
+          orientation: Orientation.Center
         }
       ]
     };
 
     this.guidedTourService.startTour(tour);
+    console.log('🎯 [Tour] Tour started with', tour.steps?.length, 'steps');
   }
 }

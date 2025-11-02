@@ -11,7 +11,6 @@ import { LoaderBarComponent } from '@abp/ng.theme.shared';
 import { GdprCookieConsentComponent } from '@volo/abp.ng.gdpr/config';
 import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
 import { GuidedTourModule } from 'ngx-guided-tour';
-import { TourResumeService } from './services/tour-resume.service';
 
 @Component({
   selector: 'app-root',
@@ -41,8 +40,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     public replaceableComponents: ReplaceableComponentsService,
     private sessionStateService: SessionStateService,
-    private themeService: ThemeService,
-    private tourResumeService: TourResumeService
+    private themeService: ThemeService
   ) {
     this.tenantName = this.sessionStateService.getTenant()?.name ?? 'host';
 

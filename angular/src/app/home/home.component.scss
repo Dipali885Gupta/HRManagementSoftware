@@ -13,6 +13,34 @@
   z-index: 2;
 }
 
+/* Continue Tour Button Styling */
+.continue-tour-btn {
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  transition: all 0.3s ease;
+  font-weight: 600;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  i {
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
 
 @media (min-width: 1199px) {
   .h-lg-100 {
