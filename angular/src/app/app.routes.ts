@@ -71,6 +71,6 @@ export const APP_ROUTES: Routes = [
   },
   { path: 'employees', children: EMPLOYEE_ROUTES },
   { path: 'leave-requests', children: LEAVE_REQUEST_ROUTES },
-  { path: 'hrmanagers', children: HRMANAGER_ROUTES },
+  { path: 'hrmanagers', children: HRMANAGER_ROUTES, canActivate: [permissionGuard] },
   { path: 'payroll-adjustments', children: PAYROLL_ADJUSTMENT_ROUTES },
 ];

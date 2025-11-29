@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { LoaderBarComponent } from '@abp/ng.theme.shared';
 import { GdprCookieConsentComponent } from '@volo/abp.ng.gdpr/config';
 import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
+import { GuidedTourModule } from 'ngx-guided-tour';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
     CommonModule,
     LoaderBarComponent,
     GdprCookieConsentComponent,
+    GuidedTourModule
   ],
   template: `
     <ng-container>
@@ -26,6 +28,7 @@ import { NoSidebar } from './shared/layouts/nosidebar/nosidebar';
         <ng-container [ngComponentOutlet]="currentLayoutComponent"></ng-container>
       </ng-container>
       <abp-gdpr-cookie-consent></abp-gdpr-cookie-consent>
+      <ngx-guided-tour></ngx-guided-tour>
     </ng-container>
   `,
 })
@@ -76,7 +79,6 @@ export class AppComponent implements OnInit {
 
     this.currentLayoutComponent = layoutComponent;
 
-
     this.replaceableComponents.add({
       component: layoutComponent,
       key: eThemeLeptonXComponents.ApplicationLayout,
@@ -89,6 +91,27 @@ export class AppComponent implements OnInit {
     this.setLayoutBasedOnRoute();
     this.applyCustomStyling();
     this.setInitialTheme();
+  }
+
+  startOnboarding() {
+    console.log('🎯 [Tour Flow] 1. User clicked "Take a Tour" button');
+    console.log('🎯 [Tour Flow] 2. Current route:', this.router.url);
+    console.log('🎯 [Tour Flow] 3. Layout type:', this.currentLayoutComponent?.name);
+
+    // Also POST a short message to the local log server (best-effort).
+    // Disabled by default to avoid noisy network errors when the server isn't running.
+    // To enable, set localStorage.setItem('enableLocalLogServer', '1') in the browser devtools.
+    if (localStorage.getItem('enableLocalLogServer') === '1') {
+      try {
+        fetch('http://localhost:9229/log', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ts: new Date().toISOString(), msg: `AppComponent.startOnboarding - route=${this.router.url}` }),
+        }).catch(() => {});
+      } catch {}
+    }
+
+    // Tour is now triggered from the landing page "Take a Tour" button
   }
 
   private applyCustomStyling() {

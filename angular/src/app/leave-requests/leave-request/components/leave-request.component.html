@@ -19,6 +19,7 @@
         *abpPermission="'HRManagementSoftware.LeaveRequests.Create'"
         class="btn btn-primary btn-sm"
         type="button"
+        id="new-leave-btn"
         (click)="create()"
       >
         <i class="fa fa-plus me-1" aria-hidden="true"></i>
@@ -109,6 +110,7 @@
               type="date"
               class="form-control form-control-lg"
               [(ngModel)]="customModel.startDate"
+              id="leave-start-date"
               name="startDate"
               [ngModelOptions]="{ standalone: true }"
               [min]="getMinDate()"
@@ -122,6 +124,7 @@
               type="date"
               class="form-control form-control-lg"
               [(ngModel)]="customModel.endDate"
+              id="leave-end-date"
               name="endDate"
               [ngModelOptions]="{ standalone: true }"
               [min]="customModel.startDate"
@@ -135,6 +138,7 @@
               class="form-control"
               rows="3"
               [(ngModel)]="customModel.reason"
+              id="leave-reason"
               name="reason"
               [ngModelOptions]="{ standalone: true }"
               placeholder="Please provide a detailed reason for your leave request..."
@@ -155,6 +159,7 @@
             <button
               type="submit"
               class="btn btn-success btn-lg"
+              id="submit-leave-btn"
               [disabled]="isSubmitting || isLoadingEmployee"
             >
               <i class="fa fa-paper-plane me-1" *ngIf="!isSubmitting"></i>
